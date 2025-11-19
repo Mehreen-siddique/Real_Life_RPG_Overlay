@@ -42,7 +42,7 @@ class _RPGBottomNavBarState extends State<RPGBottomNavBar>
     return Container(
       height: 80,
       decoration: BoxDecoration(
-        // borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
             color: AppColors.primaryPurple.withOpacity(0.4),
@@ -52,7 +52,7 @@ class _RPGBottomNavBarState extends State<RPGBottomNavBar>
         ],
       ),
       child: ClipRRect(
-        // borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(30),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: Container(
@@ -69,7 +69,7 @@ class _RPGBottomNavBarState extends State<RPGBottomNavBar>
                 color: AppColors.primaryPurple.withOpacity(0.3),
                 width: 1.5,
               ),
-              // borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(30),
             ),
             child: Stack(
               children: [

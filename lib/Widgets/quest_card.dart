@@ -111,7 +111,7 @@ class QuestCard extends StatelessWidget {
                     else
                       const Icon(
                         Icons.radio_button_unchecked,
-                        color: AppColors.textGray,
+                        color: AppColors.lightBackground,
                         size: 24,
                       ),
                   ],
