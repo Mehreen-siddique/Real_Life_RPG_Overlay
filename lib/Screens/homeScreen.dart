@@ -1,5 +1,5 @@
 // screens/home_screen.dart
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:real_life_rpg/Models/quest.dart';
 import 'package:real_life_rpg/Widgets/BottomBar.dart';
@@ -20,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
   late UserModel user;
   late List<Quest> quests;
   int _currentNavIndex = 0;
-
   @override
   void initState() {
     super.initState();
@@ -180,230 +179,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  String _getTabName(int index) {
-    switch (index) {
-      case 0:
-        return 'Home';
-      case 1:
-        return 'Quests';
-      case 2:
-        return 'AR Pet';
-      case 3:
-        return 'Social';
-      case 4:
-        return 'Profile';
-      default:
-        return '';
-    }
-  }
-
-  Widget _buildHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: const LinearGradient(
-                  colors: [
-                    AppColors.primaryPurple,
-                    AppColors.lightPurple],
-                ),
-                border: Border.all(color: AppColors.highlightGold, width: 3),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.highlightGold.withOpacity(0.5),
-                    blurRadius: 10,
-                    spreadRadius: 2,
-                  ),
-                ],
-              ),
-              child: const Icon(
-                Icons.person,
-                color: Colors.white,
-                size: 32,
-              ),
-            ),
-            const SizedBox(width: 12),
-
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Assalam Alaikum! 👋',
-                  style: AppTextStyles.body,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  user.name,
-                  style: AppTextStyles.heading.copyWith(fontSize: 20),
-                ),
-              ],
-            ),
-          ],
-        ),
-
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                AppColors.highlightGold.withOpacity(0.3),
-                AppColors.highlightGold.withOpacity(0.1),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: AppColors.highlightGold, width: 2),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.highlightGold.withOpacity(0.3),
-                blurRadius: 10,
-                spreadRadius: 1,
-              ),
-            ],
-          ),
-          child: Row(
-            children: [
-              const Icon(
-                Icons.monetization_on,
-                color: AppColors.highlightGold,
-                size: 24,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                '${user.goldCoins}',
-                style: AppTextStyles.statValue.copyWith(
-                  color: AppColors.highlightGold,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCharacterStats() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: AppColors.lightPurple,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: AppColors.primaryPurple.withOpacity(0.4),
-          width: 1.5,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadowPurple.withOpacity(0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Icon(
-                Icons.shield,
-                color: AppColors.highlightGold,
-                size: 24,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                'Character Stats',
-                style: AppTextStyles.subheading,
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-
-          StatBar(
-            label: 'Health',
-            current: user.health,
-            max: user.maxHealth,
-            color: AppColors.accentGreen,
-            icon: Icons.favorite,
-          ),
-
-         SizedBox(height: 10,),
-          StatBar(
-            label: 'Strength',
-            current: user.strength,
-            max: user.maxStrength,
-            color: Color(0xFFF87171),
-            icon: Icons.fitness_center,
-          ),
-
-          SizedBox(height: 10,),
-
-          StatBar(
-            label: 'Intelligence',
-            current: user.intelligence,
-            max: user.maxIntelligence,
-            color: AppColors.accentBlue,
-            icon: Icons.school,
-          ),
-        ],
-      ),
-    );
-  }
-
-
-  Widget _buildQuestsSection(int completed, int total) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const SizedBox(width: 8),
-            Text(
-
-              'Today\'s Quests',
-              style: AppTextStyles.subheading.copyWith(
-                fontSize: 20,
-                color: AppColors.primaryPurple
-
-              ),
-            ),
-            SizedBox(width: 150,),
-            Text(
-              '$completed/$total',
-              style: AppTextStyles.body.copyWith(
-                color: AppColors.textGray,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: quests.length,
-          itemBuilder: (context, index) {
-            return QuestCard(
-              quest: quests[index],
-              onTap: () {
-                if (!quests[index].isCompleted) {
-                  _showQuestDialog(quests[index]);
-                }
-              },
-            );
-          },
-        ),
-      ],
-    );
-  }
 
   void _showQuestDialog(Quest quest) {
     showDialog(
@@ -555,6 +330,232 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
     );
   }
+
+  String _getTabName(int index) {
+    switch (index) {
+      case 0:
+        return 'Home';
+      case 1:
+        return 'Quests';
+      case 2:
+        return 'AR Pet';
+      case 3:
+        return 'Social';
+      case 4:
+        return 'Profile';
+      default:
+        return '';
+    }
+  }
+
+  Widget _buildHeader() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+              color: AppColors.primaryPurple,
+                border: Border.all(color: AppColors.highlightGold, width: 3),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.highlightGold.withOpacity(0.3),
+                    blurRadius: 3,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+              child: const Icon(
+                Icons.person,
+                color: Colors.white,
+                size: 32,
+              ),
+            ),
+            const SizedBox(width: 12),
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                Text(
+                  user.name,
+                  style: AppTextStyles.heading.copyWith(fontSize: 20),
+                ),
+                Text(
+                  'Assalam Alaikum! 👋',
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.primaryPurple
+                  )
+                ),
+                const SizedBox(height: 4),
+              ],
+            ),
+          ],
+        ),
+
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: BoxDecoration(
+            // gradient: LinearGradient(
+            //   colors: [
+            //     AppColors.highlightGold.withOpacity(0.3),
+            //     AppColors.highlightGold.withOpacity(0.1),
+            //   ],
+            // ),
+            color: AppColors.highlightGold,
+            borderRadius: BorderRadius.circular(20),
+            // // border: Border.all(color: AppColors.highlightGold, width: 2),
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: AppColors.highlightGold.withOpacity(0.3),
+            //     blurRadius: 10,
+            //     spreadRadius: 1,
+            //   ),
+            // ],
+          ),
+          child: Row(
+            children: [
+              const Icon(
+                FontAwesomeIcons.coins,
+                color: Colors.black,
+                size: 24,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                '${user.goldCoins}',
+                style: AppTextStyles.statValue.copyWith(
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCharacterStats() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColors.lightPurple,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: AppColors.primaryPurple.withOpacity(0.4),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadowPurple.withOpacity(0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.shield,
+                color: AppColors.highlightGold,
+                size: 24,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'Character Stats',
+                style: AppTextStyles.subheading,
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+
+          StatBar(
+            label: 'Health',
+            current: user.health,
+            max: user.maxHealth,
+            color: AppColors.accentGreen,
+            icon: Icons.favorite,
+          ),
+
+         SizedBox(height: 10,),
+          StatBar(
+            label: 'Strength',
+            current: user.strength,
+            max: user.maxStrength,
+            color: Color(0xFFF87171),
+            icon: Icons.fitness_center,
+          ),
+
+          SizedBox(height: 10,),
+
+          StatBar(
+            label: 'Intelligence',
+            current: user.intelligence,
+            max: user.maxIntelligence,
+            color: AppColors.accentBlue,
+            icon: Icons.school,
+          ),
+        ],
+      ),
+    );
+  }
+
+
+  Widget _buildQuestsSection(int completed, int total) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox(width: 8),
+            Text(
+
+              'Today\'s Quests',
+              style: AppTextStyles.subheading.copyWith(
+                fontSize: 20,
+                color: AppColors.primaryPurple
+
+              ),
+            ),
+            SizedBox(width: 150,),
+            Text(
+              '$completed/$total',
+              style: AppTextStyles.body.copyWith(
+                color: AppColors.textGray,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: quests.length,
+          itemBuilder: (context, index) {
+            return QuestCard(
+              quest: quests[index],
+              onTap: () {
+                if (!quests[index].isCompleted) {
+                  _showQuestDialog(quests[index]);
+                }
+              },
+            );
+          },
+        ),
+      ],
+    );
+  }
+
 
   Widget _buildRewardChip({
     required IconData icon,
