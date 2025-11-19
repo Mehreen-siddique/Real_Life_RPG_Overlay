@@ -22,11 +22,11 @@ class XPProgressBar  extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              AppColors.primaryPurple.withOpacity(0.3),
-              AppColors.electricBlue.withOpacity(0.3),
+              AppColors.lightBackground.withOpacity(0.3),
+              AppColors.accentBlue.withOpacity(0.3),
             ],
           ),
-          borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+          borderRadius: BorderRadius.circular(AppSizes.radius),
           border: Border.all(
             color: AppColors.primaryPurple.withOpacity(0.5),
             width: 1,
@@ -46,11 +46,11 @@ class XPProgressBar  extends StatelessWidget {
                         vertical: 6,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.goldYellow,
+                        color: AppColors.highlightGold,
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.goldYellow.withOpacity(0.3),
+                            color: AppColors.highlightGold.withOpacity(0.3),
                             blurRadius: 8,
                             spreadRadius: 2,
                           ),
@@ -68,7 +68,7 @@ class XPProgressBar  extends StatelessWidget {
                     const SizedBox(width: 12),
                     const Icon(
                       Icons.stars,
-                      color: AppColors.goldYellow,
+                      color: AppColors.highlightGold,
                       size: 24,
                     ),
                   ],
@@ -91,22 +91,34 @@ class XPProgressBar  extends StatelessWidget {
                 children: [
                   Container(
                     height: 16,
-                    color: AppColors.charcoal,
+                    decoration: BoxDecoration(
+                    color: AppColors.leaderboardSilver,
+
+                      border: Border.all(
+                        color: AppColors.highlightGold.withOpacity(0.5),
+                        width: 1.5,
+                      ),
+                  ),
                   ),
                   FractionallySizedBox(
                     widthFactor: progress,
                     child: Container(
                       height: 16,
                       decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [
-                            AppColors.goldYellow,
-                            AppColors.electricBlue,
-                          ],
+                        color: AppColors.highlightGold,
+                        // gradient: const LinearGradient(
+                        //   colors: [
+                        //     AppColors.progressTrack,
+                        //     AppColors.progressFill,
+                        //   ],
+                        // ),
+                        border: Border.all(
+                          color: AppColors.highlightGold.withOpacity(0.5),
+                          width: 1.5,
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.goldYellow.withOpacity(0.5),
+                            color: AppColors.highlightGold.withOpacity(0.5),
                             blurRadius: 8,
                           ),
                         ],

@@ -1,51 +1,491 @@
+// import 'package:flutter/material.dart';
+//
+// class AppColors {
+//   // Main colors
+//   static const Color primaryPurple = Color(0xFF6C4AB6);
+//   static const Color electricBlue = Color(0xFF4A90E2);
+//   static const Color goldYellow = Color(0xFFFFD700);
+//   static const Color emeraldGreen = Color(0xFF50C878);
+//   static const Color rubyRed = Color(0xFFE74C3C);
+//
+//   // Background colors
+//   static const Color darkNavy = Color(0xFF1A1D2E);
+//   static const Color charcoal = Color(0xFF2D3142);
+//   static const Color cardBackground = Color(0xFF3A3D4E);
+//
+//   // Text colors
+//   static const Color textWhite = Color(0xFFFFFFFF);
+//   static const Color textGray = Color(0xFFB0B0B0);
+// }
+//
+// class AppTextStyles {
+//   static const TextStyle heading = TextStyle(
+//     fontSize: 24,
+//     fontWeight: FontWeight.bold,
+//     color: AppColors.textWhite,
+//   );
+//
+//   static const TextStyle subheading = TextStyle(
+//     fontSize: 18,
+//     fontWeight: FontWeight.w600,
+//     color: AppColors.textWhite,
+//   );
+//
+//   static const TextStyle body = TextStyle(
+//     fontSize: 14,
+//     color: AppColors.textGray,
+//   );
+//
+//   static const TextStyle statValue = TextStyle(
+//     fontSize: 16,
+//     fontWeight: FontWeight.bold,
+//     color: AppColors.textWhite,
+//   );
+// }
+//
+// class AppSizes {
+//   static const double padding = 16.0;
+//   static const double cardRadius = 16.0;
+//   static const double buttonRadius = 12.0;
+//   static const double iconSize = 24.0;
+// }
+
+
+
+// utils/constants.dart
+
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Main colors
-  static const Color primaryPurple = Color(0xFF6C4AB6);
-  static const Color electricBlue = Color(0xFF4A90E2);
-  static const Color goldYellow = Color(0xFFFFD700);
-  static const Color emeraldGreen = Color(0xFF50C878);
-  static const Color rubyRed = Color(0xFFE74C3C);
+  // ============================================
+  // PRIMARY BACKGROUND COLORS
+  // ============================================
+  static const Color lightBackground = Color(0xFFF8F8FA); // Very light gray
+  static const Color whiteBackground = Color(0xFFFFFFFF); // Pure white
+  static const Color cardBackground = Color(0xFFFFFFFF); // White cards
 
-  // Background colors
-  static const Color darkNavy = Color(0xFF1A1D2E);
-  static const Color charcoal = Color(0xFF2D3142);
-  static const Color cardBackground = Color(0xFF3A3D4E);
+  // ============================================
+  // ACCENT COLORS (Main Theme Colors)
+  // ============================================
+  static const Color primaryPurple = Color(0xFF8A52E5); // Main purple
+  static const Color accentMagenta = Color(0xFFC459E1); // Magenta
+  static const Color accentBlue = Color(0xFF6C82F8); // Blue
+  static const Color accentGreen = Color(0xFF34D399); // Green
+  static const Color highlightGold = Color(0xFFFFC107); // Gold/Yellow
+  static const Color accentOrange = Color(0xFFFB923C); // Orange
 
-  // Text colors
-  static const Color textWhite = Color(0xFFFFFFFF);
-  static const Color textGray = Color(0xFFB0B0B0);
+  // ============================================
+  // SECONDARY ACCENT SHADES
+  // ============================================
+  static const Color lightPurple = Color(0xFFEAE0FB); // Light purple bg
+  static const Color lightYellow = Color(0xFFFFFBEB); // Light yellow bg
+  static const Color lightGreen = Color(0xFFF0FDF4); // Light green bg
+  static const Color darkPurple = Color(0xFF6C29A6); // Dark purple text
+
+  // ============================================
+  // TEXT COLORS
+  // ============================================
+  static const Color textDark = Color(0xFF333333); // Dark gray/black
+  static const Color textWhite = Color(0xFFFFFFFF); // White
+  static const Color textLavender = Color(0xFFD9C7F7); // Light lavender
+  static const Color textGray = Color(0xFF8E8E93); // Medium gray
+  static const Color textMuted = Color(0xFFB0B0B0); // Muted gray
+
+  // Text colors for light backgrounds
+  static const Color textOnPurpleBg = Color(0xFF8A52E5);
+  static const Color textOnYellowBg = Color(0xFFD97706);
+  static const Color textOnGreenBg = Color(0xFF16A34A);
+
+  // ============================================
+  // LEADERBOARD COLORS
+  // ============================================
+  static const Color leaderboardGold = Color(0xFFFFC107);
+  static const Color leaderboardSilver = Color(0xFFBDC3C7);
+  static const Color leaderboardBronze = Color(0xFFE67E22);
+
+  // ============================================
+  // QUEST CARD COLORS
+  // ============================================
+  static const Color questPurple = Color(0xFF8A52E5);
+  static const Color questMagenta = Color(0xFFC459E1);
+  static const Color questBlue = Color(0xFF6C82F8);
+  static const Color questGreen = Color(0xFF34D399);
+   static const Color questOrange = Color(0xFFFF6B6B);
+  static const Color questCyan = Color(0xFF4ECDC4);
+
+  // ============================================
+  // BUTTON COLORS
+  // ============================================
+  static const Color buttonWhite = Color(0xFFFFFFFF);
+  static const Color buttonPurple = Color(0xFF8A52E5);
+
+  // ============================================
+  // PROGRESS BAR COLORS
+  // ============================================
+  static const Color progressFill = Color(0xFFFFFFFF);
+  static const Color progressTrack = Color(0xFF6E39C8);
+
+  // ============================================
+  // BORDER COLORS
+  // ============================================
+  static const Color borderGold = Color(0xFFFFC107);
+  static const Color borderWhite = Color(0xFFFFFFFF);
+  static const Color borderLight = Color(0xFFE8E8E8);
+
+  // ============================================
+  // SHADOW COLORS
+  // ============================================
+  static const Color shadowDark = Color(0x1A000000); // 10% black
+  static const Color shadowGold = Color(0x40FFC107); // 25% gold
+  static const Color shadowPurple = Color(0x408A52E5); // 25% purple
+
+  // ============================================
+  // GRADIENT COLORS
+  // ============================================
+
+  // Primary gradient (Purple to Pink)
+  static const List<Color> gradientPrimaryPurple = [
+    Color(0xFFA033FF),
+    Color(0xFFE84DFF),
+  ];
+
+  // AR Pet background gradient
+  static const List<Color> gradientARBackground = [
+    Color(0xFFD3C2F7),
+    Color(0xFFEAE6F9),
+  ];
+
+  // Feed button gradient (Green)
+  static const List<Color> gradientFeed = [
+    Color(0xFF10B981),
+    Color(0xFF6EE7B7),
+  ];
+
+  // Play button gradient (Purple)
+  static const List<Color> gradientPlay = [
+    Color(0xFF8B5CF6),
+    Color(0xFFA78BFA),
+  ];
+
+  // Train button gradient (Red)
+  static const List<Color> gradientTrain = [
+    Color(0xFFEF4444),
+    Color(0xFFF87171),
+  ];
+
+  // Card gradients for different quest types
+  static const List<Color> gradientHealth = [
+    Color(0xFF34D399),
+    Color(0xFF6EE7B7),
+  ];
+
+  static const List<Color> gradientStudy = [
+    Color(0xFF6C82F8),
+    Color(0xFF93A8FD),
+  ];
+
+  static const List<Color> gradientExercise = [
+    Color(0xFFEF4444),
+    Color(0xFFFB7185),
+  ];
+
+  static const List<Color> gradientSocial = [
+    Color(0xFFC459E1),
+    Color(0xFFD988ED),
+  ];
+
+  // ============================================
+  // HELPER METHODS
+  // ============================================
+
+  // Get quest color by type
+  static Color getQuestColor(String type) {
+    switch (type.toLowerCase()) {
+      case 'health':
+        return questGreen;
+      case 'study':
+        return questBlue;
+      case 'exercise':
+        return questOrange;
+      case 'social':
+        return questMagenta;
+      case 'sleep':
+        return questPurple;
+      default:
+        return primaryPurple;
+    }
+  }
+
+  // Get gradient by quest type
+  static List<Color> getQuestGradient(String type) {
+    switch (type.toLowerCase()) {
+      case 'health':
+        return gradientHealth;
+      case 'study':
+        return gradientStudy;
+      case 'exercise':
+        return gradientExercise;
+      case 'social':
+        return gradientSocial;
+      default:
+        return gradientPrimaryPurple;
+    }
+  }
 }
 
+// ============================================
+// TEXT STYLES
+// ============================================
+
 class AppTextStyles {
+  // Heading styles
   static const TextStyle heading = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.bold,
-    color: AppColors.textWhite,
+    color: AppColors.textDark,
+    letterSpacing: -0.5,
   );
 
+  static const TextStyle headingWhite = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textWhite,
+    letterSpacing: -0.5,
+  );
+
+  // Subheading styles
   static const TextStyle subheading = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w600,
-    color: AppColors.textWhite,
+    color: AppColors.textDark,
+    letterSpacing: -0.3,
   );
 
+  static const TextStyle subheadingWhite = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textWhite,
+    letterSpacing: -0.3,
+  );
+
+  // Body text styles
   static const TextStyle body = TextStyle(
     fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textGray,
+    height: 1.5,
+  );
+
+  static const TextStyle bodyDark = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textDark,
+    height: 1.5,
+  );
+
+  static const TextStyle bodyWhite = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textWhite,
+    height: 1.5,
+  );
+
+  // Small text
+  static const TextStyle caption = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
     color: AppColors.textGray,
   );
 
+  static const TextStyle captionBold = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textGray,
+  );
+
+  // Stat value styles
   static const TextStyle statValue = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
+    color: AppColors.textDark,
+  );
+
+  static const TextStyle statValueLarge = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textDark,
+  );
+
+  // Button text
+  static const TextStyle button = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
     color: AppColors.textWhite,
+    letterSpacing: 0.5,
+  );
+
+  static const TextStyle buttonPurple = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: AppColors.primaryPurple,
+    letterSpacing: 0.5,
+  );
+
+  // Tab text
+  static const TextStyle tabSelected = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textWhite,
+  );
+
+  static const TextStyle tabUnselected = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: AppColors.primaryPurple,
   );
 }
 
+// ============================================
+// APP SIZES
+// ============================================
+
 class AppSizes {
+  // Padding
+  static const double paddingXS = 4.0;
+  static const double paddingSM = 8.0;
   static const double padding = 16.0;
-  static const double cardRadius = 16.0;
-  static const double buttonRadius = 12.0;
-  static const double iconSize = 24.0;
+  static const double paddingMD = 20.0;
+  static const double paddingLG = 24.0;
+  static const double paddingXL = 32.0;
+
+  // Border radius
+  static const double radiusXS = 8.0;
+  static const double radiusSM = 12.0;
+  static const double radius = 16.0;
+  static const double radiusMD = 20.0;
+  static const double radiusLG = 24.0;
+  static const double radiusXL = 30.0;
+
+  // Icon sizes
+  static const double iconXS = 16.0;
+  static const double iconSM = 20.0;
+  static const double icon = 24.0;
+  static const double iconMD = 28.0;
+  static const double iconLG = 32.0;
+  static const double iconXL = 40.0;
+
+  // Card dimensions
+  static const double cardHeight = 120.0;
+  static const double cardElevation = 4.0;
+
+  // Avatar sizes
+  static const double avatarSM = 40.0;
+  static const double avatar = 60.0;
+  static const double avatarLG = 80.0;
+
+  // Button heights
+  static const double buttonHeight = 50.0;
+  static const double buttonHeightSM = 40.0;
+}
+
+// ============================================
+// APP SHADOWS
+// ============================================
+
+class AppShadows {
+  static List<BoxShadow> cardShadow = [
+    BoxShadow(
+      color: AppColors.shadowDark,
+      blurRadius: 12,
+      offset: const Offset(0, 4),
+      spreadRadius: 0,
+    ),
+  ];
+
+  static List<BoxShadow> cardShadowLarge = [
+    BoxShadow(
+      color: AppColors.shadowDark,
+      blurRadius: 20,
+      offset: const Offset(0, 8),
+      spreadRadius: 0,
+    ),
+  ];
+
+  static List<BoxShadow> glowPurple = [
+    BoxShadow(
+      color: AppColors.shadowPurple,
+      blurRadius: 20,
+      spreadRadius: 2,
+    ),
+  ];
+
+  static List<BoxShadow> glowGold = [
+    BoxShadow(
+      color: AppColors.shadowGold,
+      blurRadius: 15,
+      spreadRadius: 1,
+    ),
+  ];
+
+  static List<BoxShadow> buttonShadow = [
+    BoxShadow(
+      color: AppColors.primaryPurple.withOpacity(0.3),
+      blurRadius: 12,
+      offset: const Offset(0, 6),
+    ),
+  ];
+}
+
+// ============================================
+// GRADIENT HELPERS
+// ============================================
+
+class AppGradients {
+  static LinearGradient primaryPurple = const LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: AppColors.gradientPrimaryPurple,
+  );
+
+  static LinearGradient feed = const LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: AppColors.gradientFeed,
+  );
+
+  static LinearGradient play = const LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: AppColors.gradientPlay,
+  );
+
+  static LinearGradient train = const LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: AppColors.gradientTrain,
+  );
+
+  static RadialGradient arBackground = const RadialGradient(
+    center: Alignment.center,
+    radius: 1.0,
+    colors: AppColors.gradientARBackground,
+  );
+
+  static LinearGradient getQuestGradient(String type) {
+    return LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: AppColors.getQuestGradient(type),
+    );
+  }
+}
+
+// ============================================
+// ANIMATION DURATIONS
+// ============================================
+
+class AppDurations {
+  static const Duration fast = Duration(milliseconds: 200);
+  static const Duration normal = Duration(milliseconds: 300);
+  static const Duration slow = Duration(milliseconds: 500);
 }

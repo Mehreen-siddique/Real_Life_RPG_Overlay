@@ -56,7 +56,7 @@ class StatBar extends StatelessWidget {
                // Background
                Container(
                  decoration: BoxDecoration(
-                   color: AppColors.charcoal,
+                   color: AppColors.cardBackground,
                    borderRadius: BorderRadius.circular(6),
                  ),
                ),

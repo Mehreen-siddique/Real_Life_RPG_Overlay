@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_life_rpg/utils/constants.dart';
 
 enum QuestType {
   health,
@@ -17,7 +18,8 @@ class Quest {
   final int statBonus;
   final bool isCompleted;
   final IconData icon;
-  final Color color;
+  final List<Color> gradientColors;
+  //final Color color;
 
   Quest({
     required this.id,
@@ -28,7 +30,8 @@ class Quest {
     required this.statBonus,
     this.isCompleted = false,
     required this.icon,
-    required this.color,
+    required this.gradientColors,
+   // required this.color,
   });
 
   // Dummy quest list for testing
@@ -43,7 +46,7 @@ class Quest {
         statBonus: 5,
         isCompleted: true,
         icon: Icons.cleaning_services,
-        color: const Color(0xFF50C878),
+        gradientColors: AppColors.gradientPlay,
       ),
       Quest(
         id: '2',
@@ -54,7 +57,7 @@ class Quest {
         statBonus: 10,
         isCompleted: false,
         icon: Icons.fitness_center,
-        color: const Color(0xFFE74C3C),
+        gradientColors: AppColors.gradientSocial,
       ),
       Quest(
         id: '3',
@@ -65,7 +68,7 @@ class Quest {
         statBonus: 15,
         isCompleted: false,
         icon: Icons.menu_book,
-        color: const Color(0xFF4A90E2),
+        gradientColors: AppColors.gradientStudy,
       ),
       Quest(
         id: '4',
@@ -76,7 +79,7 @@ class Quest {
         statBonus: 8,
         isCompleted: false,
         icon: Icons.water_drop,
-        color: const Color(0xFF87CEEB),
+        gradientColors: AppColors.gradientPlay,
       ),
       Quest(
         id: '5',
@@ -87,7 +90,7 @@ class Quest {
         statBonus: 10,
         isCompleted: false,
         icon: Icons.family_restroom,
-        color: const Color(0xFFFF6B9D),
+        gradientColors: AppColors.gradientSocial,
       ),
     ];
   }

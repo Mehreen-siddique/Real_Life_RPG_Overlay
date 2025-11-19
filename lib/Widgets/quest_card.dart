@@ -18,25 +18,18 @@ class QuestCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppSizes.radius),
         gradient: LinearGradient(
-          colors: [
-            quest.color.withOpacity(0.2),
-            AppColors.cardBackground,
-          ],
-        ),
-        borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: Border.all(
-          color: quest.isCompleted
-              ? AppColors.emeraldGreen
-              : quest.color.withOpacity(0.3),
-          width: 2,
+          colors: quest.gradientColors,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+          borderRadius: BorderRadius.circular(AppSizes.radius),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -46,16 +39,15 @@ class QuestCard extends StatelessWidget {
                   width: 50,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: quest.color.withOpacity(0.2),
+                    gradient: LinearGradient(colors:quest.gradientColors,
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: quest.color,
-                      width: 2,
-                    ),
+
                   ),
                   child: Icon(
                     quest.icon,
-                    color: quest.color,
+                    color: AppColors.lightBackground,
                     size: 28,
                   ),
                 ),
@@ -70,6 +62,7 @@ class QuestCard extends StatelessWidget {
                         quest.title,
                         style: AppTextStyles.subheading.copyWith(
                           fontSize: 16,
+                          color: AppColors.textWhite,
                           decoration: quest.isCompleted
                               ? TextDecoration.lineThrough
                               : null,
@@ -78,7 +71,10 @@ class QuestCard extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         quest.description,
-                        style: AppTextStyles.body.copyWith(fontSize: 12),
+                        style: AppTextStyles.body.copyWith(
+                            fontSize: 12,
+                          color: AppColors.textWhite
+                        ),
                       ),
                     ],
                   ),
@@ -93,13 +89,13 @@ class QuestCard extends StatelessWidget {
                         vertical: 6,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.goldYellow,
+                        color: AppColors.lightBackground,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
                         '+${quest.xpReward} XP',
                         style: const TextStyle(
-                          color: Colors.black,
+                          color: AppColors.primaryPurple,
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                         ),
@@ -109,7 +105,7 @@ class QuestCard extends StatelessWidget {
                     if (quest.isCompleted)
                       const Icon(
                         Icons.check_circle,
-                        color: AppColors.emeraldGreen,
+                        color: AppColors.lightBackground,
                         size: 24,
                       )
                     else
