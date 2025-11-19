@@ -72,7 +72,7 @@ class AppColors {
   static const Color accentBlue = Color(0xFF6C82F8); // Blue
   static const Color accentGreen = Color(0xFF34D399); // Green
   static const Color highlightGold = Color(0xFFFFC107); // Gold/Yellow
-  static const Color accentOrange = Color(0xFFFB923C); // Orange
+ // static const Color accentOrange = Color(0xFFFB923C); // Orange
 
   // ============================================
   // SECONDARY ACCENT SHADES
@@ -92,9 +92,9 @@ class AppColors {
   static const Color textMuted = Color(0xFFB0B0B0); // Muted gray
 
   // Text colors for light backgrounds
-  static const Color textOnPurpleBg = Color(0xFF8A52E5);
+ // static const Color textOnPurpleBg = Color(0xFF8A52E5);
   static const Color textOnYellowBg = Color(0xFFD97706);
-  static const Color textOnGreenBg = Color(0xFF16A34A);
+ // static const Color textOnGreenBg = Color(0xFF16A34A);
 
   // ============================================
   // LEADERBOARD COLORS
@@ -109,9 +109,9 @@ class AppColors {
   static const Color questPurple = Color(0xFF8A52E5);
   static const Color questMagenta = Color(0xFFC459E1);
   static const Color questBlue = Color(0xFF6C82F8);
-  static const Color questGreen = Color(0xFF34D399);
-   static const Color questOrange = Color(0xFFFF6B6B);
-  static const Color questCyan = Color(0xFF4ECDC4);
+  // static const Color questGreen = Color(0xFF34D399);
+  //  static const Color questOrange = Color(0xFFFF6B6B);
+  // static const Color questCyan = Color(0xFF4ECDC4);
 
   // ============================================
   // BUTTON COLORS
@@ -155,11 +155,7 @@ class AppColors {
     Color(0xFFEAE6F9),
   ];
 
-  // Feed button gradient (Green)
-  static const List<Color> gradientFeed = [
-    Color(0xFF10B981),
-    Color(0xFF6EE7B7),
-  ];
+
 
   // Play button gradient (Purple)
   static const List<Color> gradientPlay = [
@@ -167,26 +163,9 @@ class AppColors {
     Color(0xFFA78BFA),
   ];
 
-  // Train button gradient (Red)
-  static const List<Color> gradientTrain = [
-    Color(0xFFEF4444),
-    Color(0xFFF87171),
-  ];
-
-  // Card gradients for different quest types
-  static const List<Color> gradientHealth = [
-    Color(0xFF34D399),
-    Color(0xFF6EE7B7),
-  ];
-
   static const List<Color> gradientStudy = [
     Color(0xFF6C82F8),
     Color(0xFF93A8FD),
-  ];
-
-  static const List<Color> gradientExercise = [
-    Color(0xFFEF4444),
-    Color(0xFFFB7185),
   ];
 
   static const List<Color> gradientSocial = [
@@ -202,11 +181,11 @@ class AppColors {
   static Color getQuestColor(String type) {
     switch (type.toLowerCase()) {
       case 'health':
-        return questGreen;
+        return questPurple;
       case 'study':
         return questBlue;
       case 'exercise':
-        return questOrange;
+        return questPurple;
       case 'social':
         return questMagenta;
       case 'sleep':
@@ -220,11 +199,11 @@ class AppColors {
   static List<Color> getQuestGradient(String type) {
     switch (type.toLowerCase()) {
       case 'health':
-        return gradientHealth;
+        return gradientSocial;
       case 'study':
         return gradientStudy;
       case 'exercise':
-        return gradientExercise;
+        return gradientPlay;
       case 'social':
         return gradientSocial;
       default:
@@ -450,7 +429,7 @@ class AppGradients {
   static LinearGradient feed = const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: AppColors.gradientFeed,
+    colors: AppColors.gradientSocial,
   );
 
   static LinearGradient play = const LinearGradient(
@@ -462,7 +441,7 @@ class AppGradients {
   static LinearGradient train = const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: AppColors.gradientTrain,
+    colors: AppColors.gradientPlay,
   );
 
   static RadialGradient arBackground = const RadialGradient(

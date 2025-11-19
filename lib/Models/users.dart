@@ -33,7 +33,7 @@ class UserModel {
   factory UserModel.dummy() {
     return UserModel(
       id: '1',
-      name: 'Ahmed',
+      name: 'Hero Knight',
       level: 15,
       currentXP: 2450,
       xpForNextLevel: 3000,
