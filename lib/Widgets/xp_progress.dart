@@ -106,12 +106,6 @@ class XPProgressBar  extends StatelessWidget {
                       height: 16,
                       decoration: BoxDecoration(
                         color: AppColors.highlightGold,
-                        // gradient: const LinearGradient(
-                        //   colors: [
-                        //     AppColors.progressTrack,
-                        //     AppColors.progressFill,
-                        //   ],
-                        // ),
                         border: Border.all(
                           color: AppColors.highlightGold.withOpacity(0.5),
                           width: 1.5,

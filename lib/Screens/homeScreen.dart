@@ -600,15 +600,15 @@ class _HomeScreenState extends State<HomeScreen> {
       extendBody: true, // Important for transparent bottom nav
       body: Container(
         decoration: BoxDecoration(
-          gradient: RadialGradient(
-            center: Alignment.center,
-            radius: 1.5,
-            colors: [
-              AppColors.lightPurple.withOpacity(0.15),
-              AppColors.lightBackground,
-              AppColors.lightBackground,
-            ],
-          ),
+          // gradient: RadialGradient(
+          //   center: Alignment.center,
+          //   radius: 1.5,
+          //   colors: [
+          //     AppColors.lightPurple.withOpacity(0.15),
+          //     AppColors.lightBackground,
+          //     AppColors.lightBackground,
+          //   ],
+          // ),
         ),
         child: SafeArea(
           bottom: false,

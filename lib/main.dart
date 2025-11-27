@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:real_life_rpg/Screens/homeScreen.dart';
+import 'package:real_life_rpg/Screens/Authentication/LoginScreen.dart';
 
 
 void main(){
@@ -18,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: LoginScreen(),
     );
   }
 }
