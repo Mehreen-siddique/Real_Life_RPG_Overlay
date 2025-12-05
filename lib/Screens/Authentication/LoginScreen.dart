@@ -1,6 +1,7 @@
 // screens/auth/login_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:real_life_rpg/Screens/Authentication/ForgotPassword.dart';
 import 'package:real_life_rpg/Screens/Authentication/SignupScreen.dart';
 import 'package:real_life_rpg/Screens/homeScreen.dart';
 import '../../utils/constants.dart';
@@ -245,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
-                        context,MaterialPageRoute(builder: (context)=>SignUpScreen())
+                        context,MaterialPageRoute(builder: (context)=>ForgotPasswordScreen())
                       );
                     },
                     child: Text(
