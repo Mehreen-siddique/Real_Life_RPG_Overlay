@@ -1,6 +1,7 @@
 // screens/auth/SignUp_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:real_life_rpg/Screens/Authentication/LoginScreen.dart';
 import 'package:real_life_rpg/Screens/homeScreen.dart';
 import '../../utils/constants.dart';
 
@@ -314,12 +315,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (_) => const SignupScreen(),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => LoginScreen(),
+                            ),
+                          );
                         },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
