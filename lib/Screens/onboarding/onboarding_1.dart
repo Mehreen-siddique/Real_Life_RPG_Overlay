@@ -89,6 +89,22 @@ class _onboarding1State extends State<onboarding1> {
   ];
 
 
+  Widget _buildIndicator(int index) {
+    return AnimatedContainer(
+      duration: AppDurations.fast,
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      width: _currentPage == index ? 24 : 8,
+      height: 8,
+      decoration: BoxDecoration(
+        color: _currentPage == index
+            ? AppColors.primaryPurple
+            : AppColors.primaryPurple.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(4),
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,7 +146,21 @@ class _onboarding1State extends State<onboarding1> {
                         return _buildOnboardingPage(_pages[index]);
                       }
 
-                  ))
+                  )),
+
+
+              // Page Indicators
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    _pages.length,
+                        (index) => _buildIndicator(index),
+                  ),
+                ),
+              ),
+
             ],
 
       )),
