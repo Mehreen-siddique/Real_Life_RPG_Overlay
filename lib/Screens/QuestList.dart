@@ -110,6 +110,50 @@ class _QuestlistState extends State<Questlist> with SingleTickerProviderStateMix
     );
   }
 
+  //tab section
+  Widget _buildTabBar() {
+    return Container(
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+      decoration: BoxDecoration(
+        color: AppColors.cardBackground.withOpacity(0.95),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primaryPurple.withOpacity(0.2),
+            blurRadius: 3,
+            offset: const Offset(0, 5),
+          ),
+       ],
+      ),
+      child: TabBar(
+        controller: _tabController,
+        indicatorSize: TabBarIndicatorSize.tab,
+        indicatorPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        indicator: BoxDecoration(
+          gradient: AppGradients.primaryPurple,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primaryPurple.withOpacity(0.6),
+              blurRadius: 12,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+        labelColor: Colors.white,
+        unselectedLabelColor: AppColors.textGray,
+        labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        labelPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        tabs: [
+          Tab(text: 'All  (${_allQuests.length})'),
+          Tab(text: 'Active  (${_activeQuests.length})'),
+          Tab(text: 'Done  (${_completedQuests.length})'),
+        ],
+      ),
+    );
+  }
+
 
 
 
@@ -123,6 +167,10 @@ backgroundColor: AppColors.lightBackground,
 
           // header section
           _buildHeader(),
+
+          //tab bar section
+          _buildTabBar(),
+
 
 
         ],
