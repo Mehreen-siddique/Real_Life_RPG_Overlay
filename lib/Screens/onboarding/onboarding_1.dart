@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_life_rpg/Screens/Authentication/LoginScreen.dart';
 import 'package:real_life_rpg/Screens/onboarding/OnboardingClass.dart';
 import 'package:real_life_rpg/utils/constants.dart';
 
@@ -105,6 +106,26 @@ class _onboarding1State extends State<onboarding1> {
   }
 
 
+  void _nextPage() {
+    _pageController.nextPage(
+      duration: AppDurations.normal,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void _skipToLogin() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context)=>LoginScreen()),
+    );
+  }
+
+  void _navigateToLogin() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,7 +139,7 @@ class _onboarding1State extends State<onboarding1> {
                 children: [
                   // skip button
                   TextButton(
-                    onPressed:(){},
+                    onPressed:_skipToLogin,
                     child: Text(
                       'Skip',
                       style: AppTextStyles.body.copyWith(
@@ -160,6 +181,34 @@ class _onboarding1State extends State<onboarding1> {
                   ),
                 ),
               ),
+
+      // Bottom Button
+      Padding(
+          padding: const EdgeInsets.all(24),
+          child: SizedBox(
+            width: double.infinity,
+            height: AppSizes.buttonHeight,
+            child: ElevatedButton(
+              onPressed: _currentPage == _pages.length - 1
+                  ? _navigateToLogin
+                  : _nextPage,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primaryPurple,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSizes.radiusSM),
+                ),
+                elevation: 4,
+                shadowColor: AppColors.shadowPurple,
+              ),
+              child: Text(
+                _currentPage == _pages.length - 1
+                    ? 'Get Started'
+                    : 'Next',
+                style: AppTextStyles.button,
+              ),
+            ),
+          )
+      )
 
             ],
 
