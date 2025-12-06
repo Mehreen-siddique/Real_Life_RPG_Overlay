@@ -13,6 +13,30 @@ class _onboarding1State extends State<onboarding1> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
+      body: SafeArea(
+          child: Column(
+            children: [
+              Padding(padding: EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  // skip button
+                  TextButton(
+                    onPressed:(){},
+                    child: Text(
+                      'Skip',
+                      style: AppTextStyles.body.copyWith(
+                        color: AppColors.primaryPurple,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              )
+            ],
+
+      )),
     );
   }
 }
