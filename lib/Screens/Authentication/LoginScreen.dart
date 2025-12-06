@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:real_life_rpg/Screens/Authentication/ForgotPassword.dart';
 import 'package:real_life_rpg/Screens/Authentication/SignupScreen.dart';
-import 'package:real_life_rpg/Screens/homeScreen.dart';
+import 'package:real_life_rpg/Screens/Home/MainContainer.dart';
 import '../../utils/constants.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (mounted) {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => MainContainerScreen()),
         );
       }
     }
@@ -95,33 +95,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: AppTextStyles.heading.copyWith(fontSize: 32),
                   ),
                 ),
-                // const SizedBox(height: 8),
-                // Text(
-                //   'Login to continue your journey',
-                //   style: AppTextStyles.body.copyWith(fontSize: 16),
-                // ),
+                const SizedBox(height: 8),
+                Text(
+                  'Login to continue your journey',
+                  style: AppTextStyles.body.copyWith(fontSize: 16),
+                ),
                 const SizedBox(height: 60),
 
-                // // Logo
-                // Center(
-                //   child: Container(
-                //     width: 100,
-                //     height: 100,
-                //     decoration: BoxDecoration(
-                //       gradient: AppGradients.primaryPurple,
-                //       borderRadius: BorderRadius.circular(25),
-                //       boxShadow: AppShadows.glowPurple,
-                //     ),
-                //     child: const Icon(
-                //       Icons.emoji_events_rounded,
-                //       size: 60,
-                //       color: AppColors.textWhite,
-                //     ),
-                //   ),
-                // ),
-                // const SizedBox(height: 60),
-
-                // Email Field
                 Text(
                   'Email',
                   style: AppTextStyles.bodyDark.copyWith(

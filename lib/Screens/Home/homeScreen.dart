@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:real_life_rpg/Models/quest.dart';
 import 'package:real_life_rpg/Widgets/BottomBar.dart';
 import 'package:real_life_rpg/Widgets/stats_bar.dart';
-import '../Models/users.dart';
-import '../widgets/xp_progress.dart';
-import '../widgets/quest_card.dart';
-import '../utils/constants.dart';
+import '../../Models/users.dart';
+import '../../widgets/xp_progress.dart';
+import '../../widgets/quest_card.dart';
+import '../../utils/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late UserModel user;
   late List<Quest> quests;
-  int _currentNavIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -331,22 +331,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  String _getTabName(int index) {
-    switch (index) {
-      case 0:
-        return 'Home';
-      case 1:
-        return 'Quests';
-      case 2:
-        return 'AR Pet';
-      case 3:
-        return 'Social';
-      case 4:
-        return 'Profile';
-      default:
-        return '';
-    }
-  }
 
   Widget _buildHeader() {
     return Row(
@@ -599,17 +583,6 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppColors.lightBackground,
       extendBody: true, // Important for transparent bottom nav
       body: Container(
-        decoration: BoxDecoration(
-          // gradient: RadialGradient(
-          //   center: Alignment.center,
-          //   radius: 1.5,
-          //   colors: [
-          //     AppColors.lightPurple.withOpacity(0.15),
-          //     AppColors.lightBackground,
-          //     AppColors.lightBackground,
-          //   ],
-          // ),
-        ),
         child: SafeArea(
           bottom: false,
           child: SingleChildScrollView(
@@ -641,40 +614,27 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     // Navigate to AR screen
-      //     ScaffoldMessenger.of(context).showSnackBar(
-      //       const SnackBar(content: Text('AR Feature coming soon!')),
-      //     );
+
+
+      // bottomNavigationBar: RPGBottomNavBar(
+      //   currentIndex: _currentNavIndex,
+      //   onTap: (index) {
+      //     setState(() {
+      //       _currentNavIndex = index;
+      //     });
+      //
+      //     // Show coming soon for other tabs
+      //     if (index != 0) {
+      //       ScaffoldMessenger.of(context).showSnackBar(
+      //         SnackBar(
+      //           content: Text(_getTabName(index) + ' - Coming Soon!'),
+      //           backgroundColor: AppColors.primaryPurple,
+      //           duration: const Duration(seconds: 1),
+      //         ),
+      //       );
+      //     }
       //   },
-      //   backgroundColor: AppColors.primaryPurple,
-      //   child:  Icon(
-      //     color: AppColors.highlightGold,
-      //     Icons.camera_alt,
-      //   ),
       // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-
-      bottomNavigationBar: RPGBottomNavBar(
-        currentIndex: _currentNavIndex,
-        onTap: (index) {
-          setState(() {
-            _currentNavIndex = index;
-          });
-
-          // Show coming soon for other tabs
-          if (index != 0) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(_getTabName(index) + ' - Coming Soon!'),
-                backgroundColor: AppColors.primaryPurple,
-                duration: const Duration(seconds: 1),
-              ),
-            );
-          }
-        },
-      ),
 
 
 
