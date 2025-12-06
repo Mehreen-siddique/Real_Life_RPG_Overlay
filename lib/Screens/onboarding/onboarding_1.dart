@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_life_rpg/Screens/onboarding/OnboardingClass.dart';
 import 'package:real_life_rpg/utils/constants.dart';
 
 class onboarding1 extends StatefulWidget {
@@ -9,6 +10,85 @@ class onboarding1 extends StatefulWidget {
 }
 
 class _onboarding1State extends State<onboarding1> {
+
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+
+
+  Widget _buildOnboardingPage(OnboardingPage page) {
+    return Padding(
+      padding: const EdgeInsets.all(40),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Icon Container
+          Container(
+            width: 150,
+            height: 150,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  page.color.withOpacity(0.2),
+                  page.color.withOpacity(0.1),
+                ],
+              ),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              page.icon,
+              size: 80,
+              color: page.color,
+            ),
+          ),
+          const SizedBox(height: 60),
+
+          // Title
+          Text(
+            page.title,
+            style: AppTextStyles.heading.copyWith(fontSize: 28),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
+
+          // Description
+          Text(
+            page.description,
+            style: AppTextStyles.body.copyWith(
+              fontSize: 16,
+              height: 1.6,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  final List<OnboardingPage> _pages = [
+    OnboardingPage(
+      icon: Icons.task_alt_rounded,
+      title: 'Turn Tasks into Quests',
+      description:
+      'Transform your daily routine into exciting adventures. Complete quests and earn XP!',
+      color: AppColors.primaryPurple,
+    ),
+    OnboardingPage(
+      icon: Icons.emoji_events_rounded,
+      title: 'Level Up & Earn Rewards',
+      description:
+      'Gain experience points, unlock achievements, and watch your character grow stronger!',
+      color: AppColors.accentBlue,
+    ),
+    OnboardingPage(
+      icon: Icons.people_rounded,
+      title: 'Compete with Friends',
+      description:
+      'Challenge your friends and family. Climb the leaderboard and become the ultimate champion!',
+      color: AppColors.accentGreen,
+    ),
+  ];
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +111,26 @@ class _onboarding1State extends State<onboarding1> {
                       ),
                     ),
                   ),
+                  
                 ],
               ),
-              )
+              ),
+
+              // Page View
+              Expanded(
+                  child: PageView.builder(
+                      controller: _pageController,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _currentPage = index;
+                        });
+                      },
+                      itemCount: _pages.length,
+                      itemBuilder:(context, index){
+                        return _buildOnboardingPage(_pages[index]);
+                      }
+
+                  ))
             ],
 
       )),
