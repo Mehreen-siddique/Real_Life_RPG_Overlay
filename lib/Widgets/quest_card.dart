@@ -20,7 +20,7 @@ class QuestCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSizes.radius),
         gradient: LinearGradient(
-          colors: quest.gradientColors,
+          colors: quest.difficultyGradient,
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -39,7 +39,8 @@ class QuestCard extends StatelessWidget {
                   width: 50,
                   height: 50,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(colors:quest.gradientColors,
+                    gradient: LinearGradient(
+                      colors:quest.difficultyGradient,
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,),
                     borderRadius: BorderRadius.circular(12),

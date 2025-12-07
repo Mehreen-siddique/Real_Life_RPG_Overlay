@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:real_life_rpg/Models/quest.dart';
 import 'package:real_life_rpg/utils/constants.dart';
 
+import '../widgets/quest_card.dart';
+
 class Questlist extends StatefulWidget {
   const Questlist({super.key});
 
@@ -35,6 +37,7 @@ class _QuestlistState extends State<Questlist> with SingleTickerProviderStateMix
     _tabController.dispose();
     super.dispose();
   }
+
 
 
 
@@ -154,6 +157,67 @@ class _QuestlistState extends State<Questlist> with SingleTickerProviderStateMix
     );
   }
 
+//quest section
+
+  Widget _buildQuestList(List<Quest> quests) {
+    // Empty State
+    if (quests.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.assignment_late_outlined,
+                size: 90,
+                color: AppColors.textGray.withOpacity(0.3),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'No quests in this tab',
+                style: AppTextStyles.heading.copyWith(
+                  fontSize: 20,
+                  color: AppColors.textGray,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'All your quests will appear here when created.',
+                style: AppTextStyles.body.copyWith(
+                  color: AppColors.textGray.withOpacity(0.7),
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Real Quest List - Using Your Perfect QuestCard
+    return ListView.builder(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 120), // Extra bottom for FAB
+      itemCount: quests.length,
+      itemBuilder: (context, index) {
+        final quest = quests[index];
+
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: QuestCard(
+            quest: quest,
+            onTap: () {
+              // QuestsScreen pe tap karne se kuch nahi hoga (dialog nahi khulega)
+              // Tum yahan swipe to complete, long press, ya button se complete karogi
+              // Abhi ke liye blank rakha hai — bilkul safe aur clean
+            },
+          ),
+        );
+      },
+    );
+  }
+
 
 
 
@@ -171,7 +235,17 @@ backgroundColor: AppColors.lightBackground,
           //tab bar section
           _buildTabBar(),
 
-
+          // Tab Views
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                _buildQuestList(_allQuests),
+                _buildQuestList(_activeQuests),
+                _buildQuestList(_completedQuests),
+              ],
+            ),
+          ),
 
         ],
       )),
