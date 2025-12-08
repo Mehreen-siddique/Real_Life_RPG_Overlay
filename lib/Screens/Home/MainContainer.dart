@@ -18,7 +18,7 @@ class _MainContainerScreenState extends State<MainContainerScreen> {
 
   final List<Widget> _screens = const [
     HomeScreen(),
-    Questlist(),
+    QuestListScreen(),
     // ARPetScreen(),
     // SocialScreen(),
     // ProfileScreen(),
@@ -27,7 +27,7 @@ class _MainContainerScreenState extends State<MainContainerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true, // Yeh zaroori hai tumhare glassmorphism nav ke liye
+      extendBody: true,
       body: IndexedStack(
         index: _currentIndex,
         children: _screens,

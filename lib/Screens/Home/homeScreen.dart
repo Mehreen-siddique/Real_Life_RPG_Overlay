@@ -581,7 +581,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
-      extendBody: true, // Important for transparent bottom nav
+      extendBody: true,
       body: Container(
         child: SafeArea(
           bottom: false,
@@ -590,7 +590,7 @@ class _HomeScreenState extends State<HomeScreen> {
               left: 16,
               right: 16,
               top: 16,
-              bottom: 100, // Space for bottom nav
+              bottom: 100,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -614,30 +614,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-
-
-      // bottomNavigationBar: RPGBottomNavBar(
-      //   currentIndex: _currentNavIndex,
-      //   onTap: (index) {
-      //     setState(() {
-      //       _currentNavIndex = index;
-      //     });
-      //
-      //     // Show coming soon for other tabs
-      //     if (index != 0) {
-      //       ScaffoldMessenger.of(context).showSnackBar(
-      //         SnackBar(
-      //           content: Text(_getTabName(index) + ' - Coming Soon!'),
-      //           backgroundColor: AppColors.primaryPurple,
-      //           duration: const Duration(seconds: 1),
-      //         ),
-      //       );
-      //     }
-      //   },
-      // ),
-
-
-
     );
   }
 }
