@@ -216,6 +216,26 @@ class _profileScreenState extends State<profileScreen> {
                     ),
                   ),
                 ),
+                    SizedBox(height: 16,),
+                    Text(
+                      user.name,
+                      style: AppTextStyles.heading.copyWith(fontSize: 24),
+                    ),
+                    SizedBox(height: 8,),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 6
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.highlightGold,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        'LEVEL ${user.level}',
+                        style: AppTextStyles.bodyDark,
+                      ),
+                    )
 
                   ],
                 ),
@@ -223,6 +243,7 @@ class _profileScreenState extends State<profileScreen> {
             ),
 
           ),
+
         ],
       ),
 
