@@ -18,6 +18,7 @@ class _profileScreenState extends State<profileScreen> {
     super.initState();
     user = UserModel.dummy();
   }
+// statistics card section
 
   Widget _buildStatCard({
     required IconData icon,
@@ -68,9 +69,87 @@ class _profileScreenState extends State<profileScreen> {
     );
   }
 
+  Widget _buildStatRow(String label, String value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: AppTextStyles.body.copyWith(fontSize: 15),
+        ),
+        Text(
+          value,
+          style: AppTextStyles.bodyDark.copyWith(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+      ],
+    );
+  }
+
+  //Achievements section
+
+  Widget _buildAchievementRow({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required Color color,
+    required bool isUnlocked,
+  }) {
+    return Row(
+      children: [
+        Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: isUnlocked
+                ? color.withOpacity(0.2)
+                : AppColors.textGray.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(
+            icon,
+            color: isUnlocked ? color : AppColors.textGray,
+            size: 28,
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: AppTextStyles.bodyDark.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: isUnlocked ? AppColors.textDark : AppColors.textGray,
+                ),
+              ),
+              Text(
+                subtitle,
+                style: AppTextStyles.caption,
+              ),
+            ],
+          ),
+        ),
+        if (isUnlocked)
+          Icon(Icons.check_circle, color: color, size: 24)
+        else
+          Icon(Icons.lock_outline, color: AppColors.textGray, size: 24),
+      ],
+    );
+  }
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.lightBackground,
 
     );
   }
