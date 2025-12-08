@@ -244,6 +244,170 @@ class _profileScreenState extends State<profileScreen> {
 
           ),
 
+          //Content of screen
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteBackground,
+                      borderRadius: BorderRadius.circular(AppSizes.radius),
+                      boxShadow: AppShadows.cardShadow,
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Level ${user.level}',
+                              style: AppTextStyles.subheading,
+                            ),
+                            Text(
+                              '${user.currentXP} / ${user.xpForNextLevel} XP',
+                              style: AppTextStyles.body.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primaryPurple,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12,),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: LinearProgressIndicator(
+                            value: user.xpProgress,
+                            minHeight: 16,
+                            backgroundColor: AppColors.lightBackground,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              AppColors.highlightGold,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 8,),
+                        Text('${((user.xpProgress) * 100).toInt()}% to next level',
+                          style: AppTextStyles.caption,)
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 24,),
+                  Text(
+                    'Character Stats',
+                    style: AppTextStyles.subheading.copyWith(fontSize: 18),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                  child: _buildStatCard(
+                  icon: Icons.favorite,
+                    label: 'Health',
+                    value: user.health,
+                    maxValue: user.maxHealth,
+                    color: AppColors.accentGreen,
+                  ),
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: _buildStatCard(
+                          icon: Icons.favorite,
+                          label: 'Health',
+                          value: user.health,
+                          maxValue: user.maxHealth,
+                          color: AppColors.accentGreen,
+                        ),
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: _buildStatCard(
+                          icon: Icons.favorite,
+                          label: 'Health',
+                          value: user.health,
+                          maxValue: user.maxHealth,
+                          color: AppColors.accentGreen,
+                        ),
+                      ),
+
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildStatCard(
+                          icon: Icons.favorite,
+                          label: 'Health',
+                          value: user.health,
+                          maxValue: user.maxHealth,
+                          color: AppColors.accentGreen,
+                        ),
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: _buildStatCard(
+                          icon: Icons.favorite,
+                          label: 'Health',
+                          value: user.health,
+                          maxValue: user.maxHealth,
+                          color: AppColors.accentGreen,
+                        ),
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: _buildStatCard(
+                          icon: Icons.favorite,
+                          label: 'Health',
+                          value: user.health,
+                          maxValue: user.maxHealth,
+                          color: AppColors.accentGreen,
+                        ),
+                      ),
+
+                    ],
+                  ),
+                  SizedBox(height: 24,),
+                  Text(
+                    'Achievements',
+                    style: AppTextStyles.subheading.copyWith(fontSize: 18),
+                  ),
+                  SizedBox(height: 16),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteBackground,
+                      borderRadius: BorderRadius.circular(AppSizes.radius),
+                      boxShadow: AppShadows.cardShadow,
+                    ),
+                    child: Column(
+                      children: [
+                        _buildAchievementRow(
+                          icon: Icons.local_fire_department,
+                          title: '7 Day Streak',
+                          subtitle: 'Keep the momentum going!',
+                          color: AppColors.highlightGold,
+                          isUnlocked: true,
+                        ),
+                        Divider(height: 24),
+                        _buildAchievementRow(
+                          icon: Icons.star,
+                          title: 'First Quest',
+                          subtitle: 'Completed your first quest',
+                          color: AppColors.highlightGold,
+                          isUnlocked: true,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+
+            ),
+          ),
+
+
         ],
       ),
 

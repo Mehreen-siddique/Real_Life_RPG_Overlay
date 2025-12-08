@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:real_life_rpg/Screens/Home/homeScreen.dart';
 import 'package:real_life_rpg/Screens/QuestList.dart';
 import 'package:real_life_rpg/Widgets/BottomBar.dart';
+import 'package:real_life_rpg/profile/ProfileScreen.dart';
 import 'package:real_life_rpg/utils/constants.dart';
 
 
@@ -21,7 +22,7 @@ class _MainContainerScreenState extends State<MainContainerScreen> {
     QuestListScreen(),
     // ARPetScreen(),
     // SocialScreen(),
-    // ProfileScreen(),
+     profileScreen(),
   ];
 
   @override
@@ -33,26 +34,26 @@ class _MainContainerScreenState extends State<MainContainerScreen> {
         children: _screens,
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+        padding:  EdgeInsets.fromLTRB(16, 0, 16, 20),
         child: RPGBottomNavBar(
           currentIndex: _currentIndex,
           onTap: (index) {
-            setState(() => _currentIndex = index);
+            setState(() => _currentIndex = index
+            );
 
-            // Optional: Coming soon wale tabs pe message
-            if (index == 2 || index == 3) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    index == 2 ? 'AR Pet - Coming Soon!' : 'Social Hub - Coming Soon!',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  backgroundColor: AppColors.primaryPurple,
-                  behavior: SnackBarBehavior.floating,
-                  duration: const Duration(milliseconds: 900),
-                ),
-              );
-            }
+            // if (index == 2 || index == 3) {
+            //   ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(
+            //       content: Text(
+            //         index == 2 ? 'AR Pet - Coming Soon!' : 'Social Hub - Coming Soon!',
+            //         style: const TextStyle(fontWeight: FontWeight.bold),
+            //       ),
+            //       backgroundColor: AppColors.primaryPurple,
+            //       behavior: SnackBarBehavior.floating,
+            //       duration: const Duration(milliseconds: 900),
+            //     ),
+            //   );
+            // }
           },
         ),
       ),
