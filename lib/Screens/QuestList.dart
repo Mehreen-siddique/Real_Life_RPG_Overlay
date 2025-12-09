@@ -16,6 +16,7 @@ class QuestListScreen extends StatefulWidget {
 class _QuestListScreenState extends State<QuestListScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  int _selectedTabIndex = 0;
   List<Quest> _allQuests = [];
   List<Quest> _activeQuests = [];
   List<Quest> _completedQuests = [];
@@ -85,34 +86,97 @@ class _QuestListScreenState extends State<QuestListScreen>
     );
   }
 
- // tabbar section
 
   Widget _buildTabBar() {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: AppColors.whiteBackground,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: AppShadows.cardShadow,
+    return Padding(
+      padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
+      child: Container(
+        child: Row(
+          children: [
+            // All Quest Button
+            Expanded(
+              child: _buildTabButton(
+                title: "All Quest",
+                count: _allQuests.length,
+                isSelected: _selectedTabIndex == 0,
+                onTap: () {
+                  setState(() {
+                    _selectedTabIndex = 0;
+                    _tabController.index = 0;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(width: 8),
+
+            // Active Button
+            Expanded(
+              child: _buildTabButton(
+                title: "Active",
+                count: _activeQuests.length,
+                isSelected: _selectedTabIndex == 1,
+                onTap: () {
+                  setState(() {
+                    _selectedTabIndex = 1;
+                    _tabController.index = 1;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(width: 8),
+
+            // completed Button
+            Expanded(
+              child: _buildTabButton(
+                title: "completed",
+                count: _completedQuests.length,
+                isSelected: _selectedTabIndex == 2,
+                onTap: () {
+                  setState(() {
+                    _selectedTabIndex = 2;
+                    _tabController.index = 2;
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
       ),
-      child: TabBar(
-        controller: _tabController,
-        indicator: BoxDecoration(
-          gradient: AppGradients.primaryPurple,
-          borderRadius: BorderRadius.circular(10),
+    );
+  }
+
+  Widget _buildTabButton({
+    required String title,
+    required int count,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          gradient: isSelected
+              ? AppGradients.secondaryPurple
+              : null,
+          color: isSelected ? null : AppColors.lightBackgroundBox,
+          borderRadius: BorderRadius.circular(12),
         ),
-        labelColor: Colors.white,
-        unselectedLabelColor: AppColors.textGray,
-        labelStyle: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              title,
+              style: isSelected? AppTextStyles.tabSelected: AppTextStyles.tabUnselected
+            ),
+            const SizedBox(height: 4),
+            Text(
+              count.toString(),
+              style: isSelected? AppTextStyles.tabSelected : AppTextStyles.tabUnselected
+
+            ),
+          ],
         ),
-        tabs: [
-          Tab(text: 'All (${_allQuests.length})'),
-          Tab(text: 'Active (${_activeQuests.length})'),
-          Tab(text: 'Done (${_completedQuests.length})'),
-        ],
       ),
     );
   }

@@ -279,13 +279,11 @@ class AppTextStyles {
   // Tab text
   static const TextStyle tabSelected = TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.bold,
     color: AppColors.textWhite,
   );
 
   static const TextStyle tabUnselected = TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.w600,
     color: AppColors.primaryPurple,
   );
 }
@@ -390,6 +388,11 @@ class AppGradients {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: AppColors.gradientPrimaryPurple,
+  );
+  static LinearGradient secondaryPurple = const LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: AppColors.gradientPrimary,
   );
 
   static LinearGradient feed = const LinearGradient(
