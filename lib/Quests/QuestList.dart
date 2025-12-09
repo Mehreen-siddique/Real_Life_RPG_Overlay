@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:real_life_rpg/Models/quest.dart';
+import 'package:real_life_rpg/Quests/QuestDetails.dart';
 import 'package:real_life_rpg/utils/constants.dart';
 import '../Widgets/quest_card.dart' show QuestCard;
 
@@ -214,21 +215,19 @@ class _QuestListScreenState extends State<QuestListScreen>
       padding: const EdgeInsets.all(16),
       itemCount: quests.length,
       itemBuilder: (context, index) {
-        // Use existing QuestCard widget from home screen
         return QuestCard(
           quest: quests[index],
-
           onTap: () async {
-            // final result = await Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (_) => QuestDetailScreen(quest: quests[index]),
-            //   ),
-            // );
-            //
-            // if (result == true) {
-            //   _loadQuests();
-            // }
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => QuestDetailScreen(quest: quests[index]),
+              ),
+            );
+
+            if (result == true) {
+              _loadQuests();
+            }
           },
         );
       },
