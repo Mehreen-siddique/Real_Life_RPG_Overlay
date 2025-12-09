@@ -42,77 +42,51 @@ class _QuestListScreenState extends State<QuestListScreen>
   }
 // header section
   Widget _buildHeader() {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: AppColors.gradientPrimaryPurple,
-        ),
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          bottomRight: Radius.circular(30),
-        ),
-      ),
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Navigator.pop(context),
-              ),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.local_fire_department,
-                      color: AppColors.highlightGold,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      '7 Day Streak',
-                      style: AppTextStyles.bodyWhite.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          const Text(
-            'Quest Log',
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 8),
           Text(
-            '${_activeQuests.length} active quests',
-            style: AppTextStyles.bodyWhite.copyWith(fontSize: 16),
+            'Quest Log',style: AppTextStyles.screenHeading,
           ),
+          SizedBox(height: 10,),
+          Container(
+            height: 40,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: AppColors.lightBackgroundBox,
+              border: Border.all(
+                  color: AppColors.strokeColor, width: 1.5
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              children: [
+                SizedBox(width: 10,),
+                Icon(
+                  Icons.search,
+                  color: AppColors.textGray,
+                  size: 20,
+
+                ),
+                SizedBox(width: 10,),
+                Text(
+                  "Search Quest",
+                  style: AppTextStyles.body,
+                )
+
+              ],
+            ),
+          )
+
         ],
       ),
     );
   }
 
-  //tabbar section
+ // tabbar section
+
   Widget _buildTabBar() {
     return Container(
       margin: const EdgeInsets.all(16),
@@ -206,9 +180,9 @@ class _QuestListScreenState extends State<QuestListScreen>
       body: SafeArea(
         child: Column(
           children: [
-            // Header
-            _buildHeader(),
 
+           //header section
+          _buildHeader(),
             // Tab Bar
             _buildTabBar(),
 

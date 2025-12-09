@@ -112,11 +112,11 @@ class Quest {
   List<Color> get difficultyGradient {
     switch (difficulty) {
       case QuestDifficulty.easy:
-        return AppColors.gradientPlay;
+        return AppColors.gradientEasy;
       case QuestDifficulty.medium:
-        return AppColors.gradientSocial;
+        return AppColors.gradientMedium;
       case QuestDifficulty.hard:
-        return AppColors.gradientStudy;
+        return AppColors.gradientHard;
     }
   }
 
@@ -136,7 +136,7 @@ class Quest {
         isCompleted: false,
         duration: 30,
         icon: Icons.fitness_center,
-        gradientColors: AppColors.gradientPlay,
+        gradientColors: AppColors.gradientMedium,
         isDaily: true,
       ),
       Quest(
@@ -151,7 +151,7 @@ class Quest {
         isCompleted: false,
         duration: 60,
         icon: Icons.menu_book,
-        gradientColors: AppColors.gradientPlay,
+        gradientColors: AppColors.gradientHard,
         isDaily: true,
       ),
       Quest(
@@ -165,7 +165,7 @@ class Quest {
         goldReward: 10,
         isCompleted: true,
         icon: Icons.water_drop,
-        gradientColors: AppColors.gradientPlay,
+        gradientColors: AppColors.gradientMedium,
         isDaily: true,
       ),
       Quest(
@@ -180,7 +180,7 @@ class Quest {
         isCompleted: false,
         duration: 45,
         icon: Icons.people,
-        gradientColors: AppColors.gradientPlay,
+        gradientColors: AppColors.gradientMedium,
         isDaily: true,
       ),
       Quest(
@@ -194,7 +194,7 @@ class Quest {
         goldReward: 15,
         isCompleted: false,
         icon: Icons.bedtime,
-        gradientColors: AppColors.gradientPlay,
+        gradientColors: AppColors.gradientHard,
         isDaily: true,
       ),
     ];

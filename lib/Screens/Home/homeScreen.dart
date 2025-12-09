@@ -426,15 +426,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.lightPurple,
+        color: AppColors.statsBackground,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: AppColors.primaryPurple.withOpacity(0.4),
-          width: 1.5,
-        ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadowPurple.withOpacity(0.1),
+            color: AppColors.statsBackground.withOpacity(0.1),
             blurRadius: 4,
             offset: const Offset(0, 5),
           ),

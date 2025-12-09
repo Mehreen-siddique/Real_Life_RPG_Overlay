@@ -157,6 +157,12 @@ class _profileScreenState extends State<profileScreen> {
             expandedHeight: 250,
             pinned: true,
             backgroundColor: AppColors.primaryPurple,
+            shape:  RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+            ),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () => Navigator.pop(context),
@@ -313,23 +319,14 @@ class _profileScreenState extends State<profileScreen> {
                       SizedBox(width: 12),
                       Expanded(
                         child: _buildStatCard(
-                          icon: Icons.favorite,
-                          label: 'Health',
-                          value: user.health,
-                          maxValue: user.maxHealth,
-                          color: AppColors.accentGreen,
+                          icon: Icons.fitness_center,
+                          label: 'Strength',
+                          value: user.strength,
+                          maxValue: user.maxStrength,
+                          color: AppColors.highlightGold,
                         ),
                       ),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: _buildStatCard(
-                          icon: Icons.favorite,
-                          label: 'Health',
-                          value: user.health,
-                          maxValue: user.maxHealth,
-                          color: AppColors.accentGreen,
-                        ),
-                      ),
+
 
                     ],
                   ),
@@ -338,33 +335,25 @@ class _profileScreenState extends State<profileScreen> {
                     children: [
                       Expanded(
                         child: _buildStatCard(
-                          icon: Icons.favorite,
-                          label: 'Health',
-                          value: user.health,
-                          maxValue: user.maxHealth,
-                          color: AppColors.accentGreen,
+                          icon: Icons.monetization_on,
+                          label: 'Gold',
+                          value: user.goldCoins,
+                          maxValue: 9999,
+                          color: AppColors.highlightGold,
+                          showProgress: false,
                         ),
                       ),
                       SizedBox(width: 12),
                       Expanded(
                         child: _buildStatCard(
-                          icon: Icons.favorite,
-                          label: 'Health',
-                          value: user.health,
-                          maxValue: user.maxHealth,
-                          color: AppColors.accentGreen,
+                          icon: Icons.school,
+                          label: 'Intelligence',
+                          value: user.intelligence,
+                          maxValue: user.maxIntelligence,
+                          color: AppColors.accentBlue,
                         ),
                       ),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: _buildStatCard(
-                          icon: Icons.favorite,
-                          label: 'Health',
-                          value: user.health,
-                          maxValue: user.maxHealth,
-                          color: AppColors.accentGreen,
-                        ),
-                      ),
+
 
                     ],
                   ),
@@ -398,9 +387,55 @@ class _profileScreenState extends State<profileScreen> {
                           color: AppColors.highlightGold,
                           isUnlocked: true,
                         ),
+                        Divider(height: 24),
+                        _buildAchievementRow(
+                          icon: Icons.emoji_events,
+                          title: 'Level 10',
+                          subtitle: 'Reached level 10',
+                          color: AppColors.primaryPurple,
+                          isUnlocked: true,
+                        ),
+                        Divider(height: 24),
+                        _buildAchievementRow(
+                          icon: Icons.people,
+                          title: 'Social Butterfly',
+                          subtitle: 'Complete 10 social quests',
+                          color: AppColors.textGray,
+                          isUnlocked: false,
+                        ),
+
                       ],
                     ),
-                  )
+                  ),
+                  SizedBox(height: 24),
+                  // Statistics
+                  Text(
+                    'Statistics',
+                    style: AppTextStyles.subheading.copyWith(fontSize: 18),
+                  ),
+                  SizedBox(height: 16),
+                  Container(
+                    padding:EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteBackground,
+                      borderRadius: BorderRadius.circular(AppSizes.radius),
+                      boxShadow: AppShadows.cardShadow,
+                    ),
+                    child: Column(
+                      children: [
+                        _buildStatRow('Total Quests', '156'),
+                         Divider(height: 24),
+                        _buildStatRow('Completed', '142'),
+                         Divider(height: 24),
+                        _buildStatRow('Success Rate', '91%'),
+                        Divider(height: 24),
+                        _buildStatRow('Days Active', '45'),
+                      ],
+                    ),
+
+                  ),
+                  SizedBox(height: 80),
+
                 ],
               ),
 
