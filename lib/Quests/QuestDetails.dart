@@ -58,6 +58,38 @@ class _QuestDetailScreenState extends State<QuestDetailScreen> {
     );
   }
 
+  Widget _buildInfoCard({
+    required String title,
+    required IconData icon,
+    required Widget child,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColors.whiteBackground,
+        borderRadius: BorderRadius.circular(AppSizes.radius),
+        boxShadow: AppShadows.cardShadow,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, color: AppColors.primaryPurple, size: 24),
+              const SizedBox(width: 12),
+              Text(
+                title,
+                style: AppTextStyles.subheading.copyWith(fontSize: 18),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          child,
+        ],
+      ),
+    );
+  }
+
 
 
   @override
