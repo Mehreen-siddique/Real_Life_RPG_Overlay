@@ -1,7 +1,8 @@
 // screens/main_container_screen.dart
 import 'package:flutter/material.dart';
 import 'package:real_life_rpg/Screens/Home/homeScreen.dart';
-import 'package:real_life_rpg/Quests/QuestList.dart';
+import 'package:real_life_rpg/Screens/Quests/QuestList.dart';
+import 'package:real_life_rpg/Screens/Social/LeaderboardScreen.dart';
 import 'package:real_life_rpg/Widgets/BottomBar.dart';
 import 'package:real_life_rpg/profile/ProfileScreen.dart';
 import 'package:real_life_rpg/utils/constants.dart';
@@ -21,7 +22,7 @@ class _MainContainerScreenState extends State<MainContainerScreen> {
     HomeScreen(),
     QuestListScreen(),
     // ARPetScreen(),
-    // SocialScreen(),
+    LeaderboardScreen(),
      profileScreen(),
   ];
 

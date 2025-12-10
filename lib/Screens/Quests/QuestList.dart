@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:real_life_rpg/Models/quest.dart';
-import 'package:real_life_rpg/Quests/QuestDetails.dart';
+import 'package:real_life_rpg/Screens/Quests/QuestDetails.dart';
+import 'package:real_life_rpg/Widgets/quest_card.dart';
 import 'package:real_life_rpg/utils/constants.dart';
-import '../Widgets/quest_card.dart' show QuestCard;
+
 
 
 class QuestListScreen extends StatefulWidget {

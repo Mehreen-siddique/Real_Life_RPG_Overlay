@@ -133,6 +133,10 @@ class AppColors {
 
   ];
 
+  static const List<Color>  Easy  = [Color(0xFFB16AFF), Color(0xCCA952FF)];
+  static const List<Color> Medium  = [Color(0xFF93A8FD), Color(0xFF6C82F8)];
+  static const List<Color> Hard   = [Color(0xCCD988ED), Color(0xCCC459E1)];
+
   // ============================================
   // HELPER METHODS
   // ============================================
