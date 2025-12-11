@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:real_life_rpg/Models/users.dart';
+import 'package:real_life_rpg/Screens/profile/EditProfile.dart';
 import 'package:real_life_rpg/utils/constants.dart';
 
 class profileScreen extends StatefulWidget {
@@ -172,11 +173,11 @@ class _profileScreenState extends State<profileScreen> {
               IconButton(
                 icon: const Icon(Icons.edit, color: Colors.white),
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (_) => const EditProfileScreen(),
-                  //   ),);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>  EditProfileScreen(),
+                    ),);
 
                 },
               ),
