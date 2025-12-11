@@ -43,27 +43,25 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Header
-            _buildHeader(),
+      body: Column(
+        children: [
+          // Header
+          _buildHeader(),
 
-            // Tab Bar
-            _buildTabBar(),
+          // Tab Bar
+          _buildTabBar(),
 
-            // Content
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  _buildFamilyTab(),
-                  _buildGlobalTab(),
-                ],
-              ),
+          // Content
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                _buildFamilyTab(),
+                _buildGlobalTab(),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -137,18 +135,23 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: AppColors.whiteBackground,
+        color: AppColors.lightBackgroundBox,
         borderRadius: BorderRadius.circular(12),
         boxShadow: AppShadows.cardShadow,
       ),
       child: TabBar(
         controller: _tabController,
+        indicatorSize: TabBarIndicatorSize.tab,
+        indicatorWeight: 0.01,
+        indicatorColor: Colors.transparent,
+
+
         indicator: BoxDecoration(
           gradient: AppGradients.primaryPurple,
           borderRadius: BorderRadius.circular(10),
         ),
         labelColor: Colors.white,
-        unselectedLabelColor: AppColors.textGray,
+        unselectedLabelColor: AppColors.primaryPurple,
         labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
         tabs: const [
           Tab(
@@ -185,49 +188,48 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  AppColors.lightYellow,
-                  AppColors.whiteBackground,
-                ],
-              ),
+            color: AppColors.lightBackgroundBox,
               borderRadius: BorderRadius.circular(AppSizes.radius),
               boxShadow: AppShadows.cardShadow,
+              border: Border.all(
+                  color: AppColors.strokeColor, width: 1.5
+              ),
             ),
             child: Row(
               children: [
+                SizedBox(width: 10,),
                 Container(
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: AppColors.highlightGold.withOpacity(0.2),
+                    color: AppColors.primaryPurple.withOpacity(0.2),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.emoji_events,
-                    color: AppColors.highlightGold,
+                    color: AppColors.primaryPurple,
                     size: 32,
                   ),
                 ),
-                const SizedBox(width: 16),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Total Family XP',
-                        style: AppTextStyles.caption.copyWith(fontSize: 13),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        '11,850',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.highlightGold,
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Text(
+                          'Total Family XP',
+                          style: AppTextStyles.bodyDark,
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 4),
+                        Text(
+                          '11,850',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primaryPurple,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -246,6 +248,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
           ),
           const SizedBox(height: 12),
           ..._familyUsers.skip(3).map((user) => _buildRankingCard(user)),
+
+          SizedBox(height: 100,)
         ],
       ),
     );
@@ -270,7 +274,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     final third = topThree.length > 2 ? topThree[2] : null;
 
     return SizedBox(
-      height: 280,
+      height: 350,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -279,7 +283,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
             Expanded(
               child: _buildPodiumItem(
                 user: second,
-                height: 200,
+                height: 150,
                 color: AppColors.leaderboardSilver,
                 rank: 2,
               ),
@@ -290,7 +294,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
           Expanded(
             child: _buildPodiumItem(
               user: first,
-              height: 240,
+              height: 180,
               color: AppColors.highlightGold,
               rank: 1,
               isWinner: true,
@@ -303,7 +307,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
             Expanded(
               child: _buildPodiumItem(
                 user: third,
-                height: 180,
+                height: 120,
                 color: AppColors.leaderboardBronze,
                 rank: 3,
               ),
@@ -326,7 +330,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
         // Avatar with crown (if winner)
         if (isWinner)
           Icon(
-            Icons.workspace_premium,
+            Icons.auto_awesome,
             color: AppColors.highlightGold,
             size: 32,
           ),
@@ -338,19 +342,18 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
           height: isWinner ? 70 : 60,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [color.withOpacity(0.3), color.withOpacity(0.1)],
+              colors:AppColors.gradientPrimary,
             ),
             shape: BoxShape.circle,
-            border: Border.all(color: color, width: 3),
             boxShadow: [
               BoxShadow(
-                color: color.withOpacity(0.4),
+                color: AppColors.primaryPurple.withOpacity(0.4),
                 blurRadius: 15,
                 spreadRadius: 2,
               ),
             ],
           ),
-          child: Icon(user.avatar, color: color, size: isWinner ? 35 : 30),
+          child: Icon(user.avatar, color: AppColors.whiteBackground, size: isWinner ? 35 : 30),
         ),
         const SizedBox(height: 8),
 
@@ -374,7 +377,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: color,
+            color: AppColors.textDark,
           ),
         ),
         const SizedBox(height: 8),
