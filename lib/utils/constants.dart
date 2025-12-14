@@ -13,6 +13,7 @@ class AppColors {
   // ACCENT COLORS (Main Theme Colors)
   // ============================================
   static const Color primaryPurple = Color(0xFF9458F7); // Main purple
+  static const Color errorRed = Color(0xFFFF0000);
   static const Color accentMagenta = Color(0xFFC459E1); // Magenta
   static const Color accentBlue = Color(0xFF6C82F8); // Blue
   static const Color statsBackground = Color(0xFFF2F1F1); //grey

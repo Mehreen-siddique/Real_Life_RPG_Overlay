@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:real_life_rpg/Models/users.dart';
+import 'package:real_life_rpg/Screens/Settings/SettingsScreen.dart';
 import 'package:real_life_rpg/Screens/profile/EditProfile.dart';
 import 'package:real_life_rpg/utils/constants.dart';
 
@@ -153,106 +154,113 @@ class _profileScreenState extends State<profileScreen> {
       backgroundColor: AppColors.lightBackground,
       body: CustomScrollView(
         slivers: [
-          //AppBar
-          SliverAppBar(
-            expandedHeight: 250,
-            pinned: true,
-            backgroundColor: AppColors.primaryPurple,
-            shape:  RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
-              ),
-            ),
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
-            ),
 
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.edit, color: Colors.white),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>  EditProfileScreen(),
-                    ),);
+       //AppBar
+        SliverAppBar(
+        expandedHeight: 250,
+        pinned: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
 
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.settings, color: Colors.white),
-                onPressed: () {},
-              ),
-            ],
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
 
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                decoration: BoxDecoration(
-                  gradient: AppGradients.primaryPurple,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditProfileScreen(),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 60),
-                //Avatar Space
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: AppColors.highlightGold,
-                      width: 4,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.highlightGold.withOpacity(0.5),
-                        blurRadius: 20,
-                        spreadRadius: 3,
-                      ),
-                    ],
-                  ),
-                  child:CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.person,
-                      size: 50,
-                      color: AppColors.primaryPurple,
-                    ),
-                  ),
-                ),
-                    SizedBox(height: 16,),
-                    Text(
-                      user.name,
-                      style: AppTextStyles.heading.copyWith(fontSize: 24),
-                    ),
-                    SizedBox(height: 8,),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 6
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.highlightGold,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Text(
-                        'LEVEL ${user.level}',
-                        style: AppTextStyles.bodyDark,
-                      ),
-                    )
-
-                  ],
-                ),
-              ),
-            ),
-
+              );
+            },
           ),
+          IconButton(
+            icon: const Icon(Icons.settings, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingsScreen()),
+              );
+            },
+          ),
+        ],
 
-          //Content of screen
-          SliverToBoxAdapter(
+        flexibleSpace: FlexibleSpaceBar(
+          background: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: AppGradients.primaryPurple,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 60),
+
+                  // Avatar
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      // border: Border.all(
+                      //   color: AppColors.highlightGold,
+                      //   width: 4,
+                      // ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.highlightGold.withOpacity(0.5),
+                          blurRadius: 20,
+                          spreadRadius: 3,
+                        ),
+                      ],
+                    ),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        Icons.person,
+                        size: 50,
+                        color: AppColors.primaryPurple,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  Text(
+                    user.name,
+                    style: AppTextStyles.headingWhite.copyWith(fontSize: 24),
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: AppColors.highlightGold,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      'LEVEL ${user.level}',
+                      style: AppTextStyles.bodyDark,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+
+        SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(24),
               child: Column(
