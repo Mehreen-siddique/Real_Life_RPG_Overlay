@@ -54,34 +54,43 @@ class _QuestListScreenState extends State<QuestListScreen>
             'Quest Log',style: AppTextStyles.screenHeading,
           ),
           SizedBox(height: 10,),
-          Container(
-            height: 40,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: AppColors.lightBackgroundBox,
-              border: Border.all(
-                  color: AppColors.strokeColor, width: 1.5
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              children: [
-                SizedBox(width: 10,),
-                Icon(
+          TextField(
+            decoration: InputDecoration(
+                hintText: 'Search quest',
+                hintStyle: TextStyle(
+                  color: AppColors.textGray,
+                ),
+
+                prefixIcon: Icon(
                   Icons.search,
                   color: AppColors.textGray,
-                  size: 20,
-
                 ),
-                SizedBox(width: 10,),
-                Text(
-                  "Search Quest",
-                  style: AppTextStyles.body,
-                )
+                filled: true,
+                fillColor: AppColors.lightPurple,
 
-              ],
+
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 14,
+                  horizontal: 20,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: AppColors.strokeColor,
+                    width: 1,
+                  ),
+                ),
+
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: AppColors.strokeColor,
+                  width: 1.5,
+                ),
+              ),
             ),
           )
+
 
         ],
       ),
