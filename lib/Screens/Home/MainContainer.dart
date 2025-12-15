@@ -23,7 +23,7 @@ class _MainContainerScreenState extends State<MainContainerScreen> {
     QuestListScreen(),
     // ARPetScreen(),
     LeaderboardScreen(),
-     profileScreen(),
+    ProfileScreen(),
   ];
 
   @override
