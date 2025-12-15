@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:real_life_rpg/Models/quest.dart';
+import 'package:real_life_rpg/Screens/Quests/EditQuest.dart';
 import 'package:real_life_rpg/utils/constants.dart';
 
 
@@ -323,7 +324,9 @@ class _QuestDetailScreenState extends State<QuestDetailScreen> {
                    color: Colors.white.withOpacity(0.1),
                     shape: BoxShape.circle,
                  ),
-                 child: IconButton(onPressed: (){},
+                 child: IconButton(onPressed: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>EditQuestScreen(quest: _quest,)));
+                 },
                    icon: const Icon(
                        Icons.edit,
                        color: Colors.white,

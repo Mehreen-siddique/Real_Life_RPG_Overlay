@@ -1,10 +1,12 @@
 // screens/quest/quest_list_screen.dart
 
 import 'package:flutter/material.dart';
-import 'package:real_life_rpg/Models/quest.dart';
+import 'package:real_life_rpg/Screens/Quests/CreateQuest.dart';
 import 'package:real_life_rpg/Screens/Quests/QuestDetails.dart';
 import 'package:real_life_rpg/Widgets/quest_card.dart';
 import 'package:real_life_rpg/utils/constants.dart';
+
+import '../../Models/quest.dart';
 
 
 
@@ -299,6 +301,7 @@ class _QuestListScreenState extends State<QuestListScreen>
           padding: const EdgeInsets.only(bottom:90),
           child: FloatingActionButton.extended(
             onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateQuestScreen()));
               // Navigator.push(...).then(...);
             },
             backgroundColor: AppColors.primaryPurple,
