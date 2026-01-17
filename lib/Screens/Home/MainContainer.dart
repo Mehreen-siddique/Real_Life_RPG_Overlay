@@ -1,5 +1,6 @@
 // screens/main_container_screen.dart
 import 'package:flutter/material.dart';
+import 'package:real_life_rpg/ArView/AR_Screen.dart';
 import 'package:real_life_rpg/Screens/Home/homeScreen.dart';
 import 'package:real_life_rpg/Screens/Quests/QuestList.dart';
 import 'package:real_life_rpg/Screens/Social/LeaderboardScreen.dart';
@@ -21,7 +22,7 @@ class _MainContainerScreenState extends State<MainContainerScreen> {
   final List<Widget> _screens = const [
     HomeScreen(),
     QuestListScreen(),
-    // ARPetScreen(),
+    ARCharacterScreen(),
     LeaderboardScreen(),
     ProfileScreen(),
   ];
