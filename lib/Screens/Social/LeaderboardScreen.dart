@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:real_life_rpg/Screens/Social/LeaderboardClass.dart';
 import '../../utils/constants.dart';
 
 class LeaderboardScreen extends StatefulWidget {
@@ -51,25 +52,26 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   }
 
 
+
   final List<LeaderboardUser> _globalUsers = [
-    LeaderboardUser(name: 'Iron First', xp: 2850, rank: 1, avatar: Icons.sports_kabaddi, streak: 7,
+    LeaderboardUser(name: 'Iron First', xp: 2850, rank: 1, previousRank: 2, avatar: Icons.sports_kabaddi, streak: 7,
       isActive: true,),
-    LeaderboardUser(name: 'Hero Knight', xp: 2650, rank: 2, avatar: Icons.person, streak: 5,
+    LeaderboardUser(name: 'Hero Knight', xp: 2650, rank: 2, previousRank: 2, avatar: Icons.person, streak: 5,
       isActive: false,),
-    LeaderboardUser(name: 'Wise Sage', xp: 2600, rank: 3, avatar: Icons.face, streak: 3,
+    LeaderboardUser(name: 'Wise Sage', xp: 2600, rank: 3, previousRank: 2, avatar: Icons.face, streak: 3,
       isActive: true,),
-    LeaderboardUser(name: 'Swift Runner', xp: 2450, rank: 4, avatar: Icons.directions_run, streak: 2,
+    LeaderboardUser(name: 'Swift Runner', xp: 2450, rank: 4, previousRank: 2, avatar: Icons.directions_run, streak: 2,
       isActive: false,),
-    LeaderboardUser(name: 'Study Master', xp: 2300, rank: 5, avatar: Icons.school, streak: 7,
+    LeaderboardUser(name: 'Study Master', xp: 2300, rank: 5, previousRank: 2, avatar: Icons.school, streak: 7,
       isActive: true,),
   ];
 
   final List<LeaderboardUser> _familyUsers = [
-    LeaderboardUser(name: 'Hero Knight', xp: 2650, rank: 1, avatar: Icons.person, streak: 7,
+    LeaderboardUser(name: 'Hero Knight', xp: 2650, rank: 1,  previousRank: 2,avatar: Icons.person, streak: 7,
       isActive: true,),
-    LeaderboardUser(name: 'Iron First', xp: 2850, rank: 2, avatar: Icons.sports_kabaddi, streak: 7,
+    LeaderboardUser(name: 'Iron First', xp: 2850, rank: 2, previousRank: 2, avatar: Icons.sports_kabaddi, streak: 7,
       isActive: true,),
-    LeaderboardUser(name: 'Wise Sage', xp: 2600, rank: 3, avatar: Icons.face, streak: 7,
+    LeaderboardUser(name: 'Wise Sage', xp: 2600, rank: 3, previousRank: 2, avatar: Icons.face, streak: 7,
       isActive: true,),
   ];
 
@@ -86,6 +88,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
           name: newMember.name,
           xp: newMember.xp,
           rank: _familyUsers.length + 1,
+          previousRank: newMember.previousRank,
+          streak: newMember.streak,
           avatar: newMember.avatar,
         ),
       );
@@ -867,20 +871,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   }
 }
 
-class LeaderboardUser {
-  final String name;
-  final int xp;
-  final int rank;
-  final IconData avatar;
-  final int streak;
-  final bool isActive;
 
-  LeaderboardUser({
-    required this.name,
-    required this.xp,
-    required this.rank,
-    required this.avatar,
-    this.streak = 0,
-    this.isActive = false,
-  });
-}
+
+
+
