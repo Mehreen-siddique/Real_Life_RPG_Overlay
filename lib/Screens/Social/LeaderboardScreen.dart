@@ -707,6 +707,53 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   }
 
 
+
+  Widget _buildRankMovement(LeaderboardUser user) {
+    switch (user.movement) {
+      case RankMovement.up:
+        return Row(
+          children: const [
+            Icon(Icons.arrow_upward, color: Colors.green, size: 16),
+            SizedBox(width: 2),
+            Text(
+              'Up',
+              style: TextStyle(
+                color: Colors.green,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        );
+
+      case RankMovement.down:
+        return Row(
+          children: const [
+            Icon(Icons.arrow_downward, color: Colors.red, size: 16),
+            SizedBox(width: 2),
+            Text(
+              'Down',
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        );
+
+      default:
+        return const Text(
+          '—',
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 12,
+          ),
+        );
+    }
+  }
+
+
   Widget _buildRankingCard(LeaderboardUser user) {
     final isCurrentUser = user.name == currentUserName;
 
