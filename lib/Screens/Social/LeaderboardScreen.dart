@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../../utils/constants.dart';
 
@@ -14,6 +16,10 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   late TabController _tabController;
   final String currentUserName = 'Hero Knight';
   late List<LeaderboardUser> _availableFamilyCandidates;
+  late DateTime _seasonEndTime;
+  late Timer _seasonTimer;
+  Duration _remainingTime = Duration.zero;
+
 
 
 
@@ -24,13 +30,26 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     _availableFamilyCandidates = _globalUsers
         .where((user) => !_familyUsers.any((f) => f.name == user.name))
         .toList();
+
+    _seasonEndTime = DateTime.now().add(const Duration(hours: 6));
+    _startSeasonTimer();
   }
 
   @override
   void dispose() {
+    _seasonTimer.cancel();
     _tabController.dispose();
     super.dispose();
   }
+
+
+  String _formatDuration(Duration d) {
+    final hours = d.inHours.toString().padLeft(2, '0');
+    final minutes = (d.inMinutes % 60).toString().padLeft(2, '0');
+    final seconds = (d.inSeconds % 60).toString().padLeft(2, '0');
+    return '$hours:$minutes:$seconds';
+  }
+
 
   final List<LeaderboardUser> _globalUsers = [
     LeaderboardUser(name: 'Iron First', xp: 2850, rank: 1, avatar: Icons.sports_kabaddi),
@@ -62,6 +81,21 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
           avatar: newMember.avatar,
         ),
       );
+    });
+  }
+
+
+
+  void _startSeasonTimer() {
+    _seasonTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      final now = DateTime.now();
+      setState(() {
+        _remainingTime = _seasonEndTime.difference(now);
+        if (_remainingTime.isNegative) {
+          _remainingTime = Duration.zero;
+          _seasonTimer.cancel();
+        }
+      });
     });
   }
 

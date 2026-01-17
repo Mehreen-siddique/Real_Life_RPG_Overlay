@@ -96,9 +96,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  'Login to continue your journey',
-                  style: AppTextStyles.body.copyWith(fontSize: 16),
+                Center(
+                  child: Text(
+                    'Login to continue your journey',
+                    style: AppTextStyles.body.copyWith(fontSize: 16),
+                  ),
                 ),
                 const SizedBox(height: 60),
 
