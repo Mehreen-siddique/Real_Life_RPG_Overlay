@@ -52,17 +52,25 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
 
 
   final List<LeaderboardUser> _globalUsers = [
-    LeaderboardUser(name: 'Iron First', xp: 2850, rank: 1, avatar: Icons.sports_kabaddi),
-    LeaderboardUser(name: 'Hero Knight', xp: 2650, rank: 2, avatar: Icons.person),
-    LeaderboardUser(name: 'Wise Sage', xp: 2600, rank: 3, avatar: Icons.face),
-    LeaderboardUser(name: 'Swift Runner', xp: 2450, rank: 4, avatar: Icons.directions_run),
-    LeaderboardUser(name: 'Study Master', xp: 2300, rank: 5, avatar: Icons.school),
+    LeaderboardUser(name: 'Iron First', xp: 2850, rank: 1, avatar: Icons.sports_kabaddi, streak: 7,
+      isActive: true,),
+    LeaderboardUser(name: 'Hero Knight', xp: 2650, rank: 2, avatar: Icons.person, streak: 5,
+      isActive: false,),
+    LeaderboardUser(name: 'Wise Sage', xp: 2600, rank: 3, avatar: Icons.face, streak: 3,
+      isActive: true,),
+    LeaderboardUser(name: 'Swift Runner', xp: 2450, rank: 4, avatar: Icons.directions_run, streak: 2,
+      isActive: false,),
+    LeaderboardUser(name: 'Study Master', xp: 2300, rank: 5, avatar: Icons.school, streak: 7,
+      isActive: true,),
   ];
 
   final List<LeaderboardUser> _familyUsers = [
-    LeaderboardUser(name: 'Hero Knight', xp: 2650, rank: 1, avatar: Icons.person),
-    LeaderboardUser(name: 'Iron First', xp: 2850, rank: 2, avatar: Icons.sports_kabaddi),
-    LeaderboardUser(name: 'Wise Sage', xp: 2600, rank: 3, avatar: Icons.face),
+    LeaderboardUser(name: 'Hero Knight', xp: 2650, rank: 1, avatar: Icons.person, streak: 7,
+      isActive: true,),
+    LeaderboardUser(name: 'Iron First', xp: 2850, rank: 2, avatar: Icons.sports_kabaddi, streak: 7,
+      isActive: true,),
+    LeaderboardUser(name: 'Wise Sage', xp: 2600, rank: 3, avatar: Icons.face, streak: 7,
+      isActive: true,),
   ];
 
 
@@ -753,11 +761,15 @@ class LeaderboardUser {
   final int xp;
   final int rank;
   final IconData avatar;
+  final int streak;
+  final bool isActive;
 
   LeaderboardUser({
     required this.name,
     required this.xp,
     required this.rank,
     required this.avatar,
+    this.streak = 0,
+    this.isActive = false,
   });
 }
