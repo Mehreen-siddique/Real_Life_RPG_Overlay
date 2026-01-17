@@ -113,12 +113,19 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
           // Tab Bar
           _buildTabBar(),
 
+
+          _buildSeasonTimer(),
+
           // Content
           Expanded(
             child: TabBarView(
               controller: _tabController,
               children: [
+
+
                 _buildFamilyTab(),
+
+
                 _buildGlobalTab(),
               ],
             ),
@@ -240,6 +247,39 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
       ),
     );
   }
+
+
+  Widget _buildSeasonTimer() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16, left: 15, right: 15),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: AppColors.lightBackgroundBox,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.primaryPurple),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.timer, color: AppColors.primaryPurple),
+          const SizedBox(width: 12),
+          const Expanded(
+            child: Text(
+              'Season in progress',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Text(
+            _formatDuration(_remainingTime),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.redAccent,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 
   Widget _buildFamilyTab() {
     return SingleChildScrollView(
