@@ -12,6 +12,8 @@ class LeaderboardScreen extends StatefulWidget {
 class _LeaderboardScreenState extends State<LeaderboardScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final String currentUserName = 'Hero Knight';
+
 
   @override
   void initState() {
@@ -198,6 +200,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
             child: Row(
               children: [
                 SizedBox(width: 10,),
+
                 Container(
                   width: 60,
                   height: 60,
@@ -235,11 +238,33 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 15,),
+          Container(
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: AppColors.primaryPurple.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text(
+                  '🏆 Family Season (Weekly)',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'Ends in 2 days',
+                  style: TextStyle(color: Colors.redAccent),
+                ),
+              ],
+            ),
+          ),
+           SizedBox(height: 15),
 
           // Podium (Top 3)
           _buildPodium(_familyUsers.take(3).toList()),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
 
           // Rest of rankings
           Text(
@@ -255,15 +280,63 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     );
   }
 
+  // Widget _buildGlobalTab() {
+  //   return ListView.builder(
+  //     padding: const EdgeInsets.all(16),
+  //     itemCount: _globalUsers.length,
+  //     itemBuilder: (context, index) {
+  //       return _buildRankingCard(_globalUsers[index]);
+  //     },
+  //   );
+  // }
+
   Widget _buildGlobalTab() {
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: _globalUsers.length,
-      itemBuilder: (context, index) {
-        return _buildRankingCard(_globalUsers[index]);
-      },
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            gradient: AppGradients.primaryPurple,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            children: [
+              const Text(
+                '🌍 Global Challenge',
+                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 6),
+              const Text(
+                'Ends in 5 hours',
+                style: TextStyle(color: Colors.white70),
+              ),
+              const SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('You joined the global challenge!')),
+                  );
+                },
+                child: const Text('JOIN CHALLENGE'),
+              ),
+            ],
+          ),
+        ),
+
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: _globalUsers.length,
+            itemBuilder: (context, index) {
+              return _buildRankingCard(_globalUsers[index]);
+            },
+          ),
+        ),
+      ],
     );
   }
+
 
   Widget _buildPodium(List<LeaderboardUser> topThree) {
     if (topThree.length < 3) return const SizedBox();
@@ -418,7 +491,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   }
 
   Widget _buildRankingCard(LeaderboardUser user) {
-    final isCurrentUser = user.rank == 2; // Example: current user is rank 2
+    final isCurrentUser = user.name == currentUserName;
+
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -506,7 +580,17 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
                         color: AppColors.highlightGold,
                       ),
                     ),
+
+
+
+
                   ],
+                ),
+                LinearProgressIndicator(
+                  value: (user.xp % 1000) / 1000,
+                  backgroundColor: Colors.grey.shade300,
+                  color: AppColors.primaryPurple,
+                  minHeight: 6,
                 ),
               ],
             ),
