@@ -13,12 +13,17 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final String currentUserName = 'Hero Knight';
+  late List<LeaderboardUser> _availableFamilyCandidates;
+
 
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _availableFamilyCandidates = _globalUsers
+        .where((user) => !_familyUsers.any((f) => f.name == user.name))
+        .toList();
   }
 
   @override
@@ -40,6 +45,27 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     LeaderboardUser(name: 'Iron First', xp: 2850, rank: 2, avatar: Icons.sports_kabaddi),
     LeaderboardUser(name: 'Wise Sage', xp: 2600, rank: 3, avatar: Icons.face),
   ];
+
+
+
+  void _addFamilyMemberFromPool() {
+    if (_availableFamilyCandidates.isEmpty) return;
+
+    final newMember = _availableFamilyCandidates.removeAt(0);
+
+    setState(() {
+      _familyUsers.add(
+        LeaderboardUser(
+          name: newMember.name,
+          xp: newMember.xp,
+          rank: _familyUsers.length + 1,
+          avatar: newMember.avatar,
+        ),
+      );
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -271,7 +297,24 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
             'Other Family Members',
             style: AppTextStyles.subheading,
           ),
-          const SizedBox(height: 12),
+
+          SizedBox(height: 12),
+
+          ElevatedButton.icon(
+            onPressed: _addFamilyMemberFromPool,
+            icon: const Icon(Icons.person_add),
+            label: const Text('Invite Family Member'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primaryPurple,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+            ),
+          ),
+
+           SizedBox(height: 12),
           ..._familyUsers.skip(3).map((user) => _buildRankingCard(user)),
 
           SizedBox(height: 100,)
@@ -291,51 +334,56 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   // }
 
   Widget _buildGlobalTab() {
-    return Column(
+    return ListView(
+      padding: const EdgeInsets.all(16),
       children: [
+        // Challenge banner (scrolls with list)
         Container(
-          margin: const EdgeInsets.all(16),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(14),
+          margin: const EdgeInsets.only(bottom: 12),
           decoration: BoxDecoration(
-            gradient: AppGradients.primaryPurple,
+            color: AppColors.lightBackgroundBox,
             borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppColors.primaryPurple),
           ),
-          child: Column(
+          child: Row(
             children: [
-              const Text(
-                '🌍 Global Challenge',
-                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+              const Icon(Icons.public, color: AppColors.primaryPurple),
+              const SizedBox(width: 12),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Weekly Global Challenge',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      'Ends in 5 hours',
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 6),
-              const Text(
-                'Ends in 5 hours',
-                style: TextStyle(color: Colors.white70),
-              ),
-              const SizedBox(height: 12),
-              ElevatedButton(
+              TextButton(
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('You joined the global challenge!')),
+                    const SnackBar(content: Text('You joined the challenge')),
                   );
                 },
-                child: const Text('JOIN CHALLENGE'),
+                child: const Text('JOIN'),
               ),
             ],
           ),
         ),
 
-        Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: _globalUsers.length,
-            itemBuilder: (context, index) {
-              return _buildRankingCard(_globalUsers[index]);
-            },
-          ),
-        ),
+        // Leaderboard items
+        ..._globalUsers.map((user) => _buildRankingCard(user)),
       ],
     );
   }
+
 
 
   Widget _buildPodium(List<LeaderboardUser> topThree) {
