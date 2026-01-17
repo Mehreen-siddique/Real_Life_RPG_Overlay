@@ -620,6 +620,87 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     );
   }
 
+
+  Widget _buildMatchLobbyHeader(List<LeaderboardUser> users) {
+    final activeUsers = users.where((u) => u.isActive).toList();
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: AppGradients.primaryPurple,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Title
+          Row(
+            children: const [
+              Icon(Icons.videogame_asset, color: Colors.white),
+              SizedBox(width: 8),
+              Text(
+                'Live Match Lobby',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 8),
+
+          Text(
+            '${activeUsers.length} players active right now',
+            style: const TextStyle(color: Colors.white70),
+          ),
+
+          const SizedBox(height: 12),
+
+          // Active Avatars
+          SizedBox(
+            height: 44,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: activeUsers.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 10),
+              itemBuilder: (context, index) {
+                final user = activeUsers[index];
+
+                return Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 22,
+                      backgroundColor: Colors.white,
+                      child: Icon(user.avatar, color: AppColors.primaryPurple),
+                    ),
+
+                    // Green dot (online)
+                    Positioned(
+                      bottom: 2,
+                      right: 2,
+                      child: Container(
+                        width: 10,
+                        height: 10,
+                        decoration: const BoxDecoration(
+                          color: Colors.green,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
   Widget _buildRankingCard(LeaderboardUser user) {
     final isCurrentUser = user.name == currentUserName;
 
