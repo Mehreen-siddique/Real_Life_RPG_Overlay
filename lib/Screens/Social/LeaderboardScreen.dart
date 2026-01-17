@@ -124,6 +124,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
 
           _buildSeasonTimer(),
 
+          _buildMatchLobbyHeader(_familyUsers),
+
           // Content
           Expanded(
             child: TabBarView(
@@ -419,10 +421,10 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        // Challenge banner (scrolls with list)
+        // Challenge banner
         Container(
           padding: const EdgeInsets.all(14),
-          margin: const EdgeInsets.only(bottom: 12),
+          margin: const EdgeInsets.only(bottom: 14),
           decoration: BoxDecoration(
             color: AppColors.lightBackgroundBox,
             borderRadius: BorderRadius.circular(16),
@@ -625,7 +627,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     final activeUsers = users.where((u) => u.isActive).toList();
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16, right: 15, left: 15),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: AppGradients.primaryPurple,
@@ -705,7 +707,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     final isCurrentUser = user.name == currentUserName;
 
 
-    return Container(
+    return
+      Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -765,7 +768,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
 
           // Name & XP
           Expanded(
-            child: Column(
+            child:
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -775,7 +779,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
                     fontSize: 15,
                   ),
                 ),
-                const SizedBox(height: 4),
+                 SizedBox(height: 6),
                 Row(
                   children: [
                     Icon(
@@ -783,7 +787,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
                       size: 14,
                       color: AppColors.highlightGold,
                     ),
-                    const SizedBox(width: 4),
+                     SizedBox(width: 4),
                     Text(
                       '${user.xp} XP',
                       style: AppTextStyles.caption.copyWith(
@@ -791,6 +795,34 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
                         color: AppColors.highlightGold,
                       ),
                     ),
+                      SizedBox(width: 6),
+
+                    if (user.streak > 0)
+                      Container(
+                        margin: const EdgeInsets.only(top: 4, bottom: 4),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.orange.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.local_fire_department,
+                                size: 14, color: Colors.orange),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${user.streak} day streak',
+                              style: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.orange,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
 
 
 
@@ -807,22 +839,20 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
             ),
           ),
 
-          // Badge (if current user)
+          // Badge
           if (isCurrentUser)
             Container(
+              margin: EdgeInsets.only(left: 0, bottom: 50),
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 color: AppColors.primaryPurple,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Text(
-                'YOU',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Icon(
+                Icons.ac_unit,
+                color: AppColors.lightBackground,
+                size: 9,
+              )
             ),
         ],
       ),
