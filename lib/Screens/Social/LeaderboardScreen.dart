@@ -20,6 +20,9 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   late DateTime _seasonEndTime;
   late Timer _seasonTimer;
   Duration _remainingTime = Duration.zero;
+  int _recentXpGain = 120;
+  bool _showXpGain = false;
+
 
 
 
@@ -34,6 +37,9 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
 
     _seasonEndTime = DateTime.now().add(const Duration(hours: 6));
     _startSeasonTimer();
+
+
+    Future.delayed(const Duration(seconds: 1), _triggerXpGain);
   }
 
   @override
@@ -112,6 +118,21 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   }
 
 
+  void _triggerXpGain() {
+    setState(() {
+      _showXpGain = true;
+    });
+
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() {
+          _showXpGain = false;
+        });
+      }
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -125,9 +146,11 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
           // Tab Bar
           _buildTabBar(),
 
-
+          // Timer for match
           _buildSeasonTimer(),
 
+
+         //Header show users action
           _buildMatchLobbyHeader(_familyUsers),
 
           // Content
@@ -144,7 +167,11 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
               ],
             ),
           ),
+
+          SizedBox(height: 100,),
         ],
+
+
       ),
     );
   }
@@ -627,6 +654,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   }
 
 
+
   Widget _buildMatchLobbyHeader(List<LeaderboardUser> users) {
     final activeUsers = users.where((u) => u.isActive).toList();
 
@@ -732,7 +760,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
             Icon(Icons.arrow_downward, color: Colors.red, size: 16),
             SizedBox(width: 2),
             Text(
-              'Down',
+              'DN',
               style: TextStyle(
                 color: Colors.red,
                 fontSize: 12,
@@ -751,6 +779,32 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
           ),
         );
     }
+  }
+
+  Widget _buildXpGain() {
+    return AnimatedSlide(
+      duration: const Duration(milliseconds: 500),
+      offset: _showXpGain ? Offset.zero : const Offset(0, 0.3),
+      child: AnimatedOpacity(
+        duration: const Duration(milliseconds: 500),
+        opacity: _showXpGain ? 1 : 0,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            color: Colors.green.shade600,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Text(
+            '+$_recentXpGain XP',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
 
@@ -776,24 +830,30 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
         children: [
           // Rank
           Container(
-            width: 40,
-            height: 40,
+            width: 48,
+            height: 48,
             decoration: BoxDecoration(
               color: _getRankColor(user.rank).withOpacity(0.2),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Center(
-              child: Text(
-                '${user.rank}',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: _getRankColor(user.rank),
-                ),
+              child:
+              Column(
+                children: [
+                  Text(
+                    '${user.rank}',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: _getRankColor(user.rank),
+                    ),
+                  ),
+                  _buildRankMovement(user),
+                ],
               ),
             ),
           ),
-          const SizedBox(width: 16),
+           SizedBox(width: 16),
 
           // Avatar
           Container(
@@ -815,7 +875,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
               size: 26,
             ),
           ),
-          const SizedBox(width: 16),
+           SizedBox(width: 16),
 
           // Name & XP
           Expanded(
@@ -831,8 +891,12 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
                   ),
                 ),
                  SizedBox(height: 6),
-                Row(
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 4,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
+
                     Icon(
                       Icons.stars,
                       size: 14,
@@ -874,10 +938,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
                         ),
                       ),
 
-
-
-
-
+                    // XP gain animation
+                    if (user.isActive) _buildXpGain(),
                   ],
                 ),
                 LinearProgressIndicator(
@@ -894,7 +956,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
           if (isCurrentUser)
             Container(
               margin: EdgeInsets.only(left: 0, bottom: 50),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
               decoration: BoxDecoration(
                 color: AppColors.primaryPurple,
                 borderRadius: BorderRadius.circular(12),
@@ -902,13 +964,17 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
               child: Icon(
                 Icons.ac_unit,
                 color: AppColors.lightBackground,
-                size: 9,
+                size: 13,
               )
             ),
         ],
       ),
     );
   }
+
+
+
+
 
   Color _getRankColor(int rank) {
     if (rank == 1) return AppColors.highlightGold;
