@@ -438,15 +438,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     );
   }
 
-  // Widget _buildGlobalTab() {
-  //   return ListView.builder(
-  //     padding: const EdgeInsets.all(16),
-  //     itemCount: _globalUsers.length,
-  //     itemBuilder: (context, index) {
-  //       return _buildRankingCard(_globalUsers[index]);
-  //     },
-  //   );
-  // }
+
 
   Widget _buildGlobalTab() {
     return ListView(
@@ -504,7 +496,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   Widget _buildPodium(List<LeaderboardUser> topThree) {
     if (topThree.length < 3) return const SizedBox();
 
-    // Reorder for podium: 2nd, 1st, 3rd
+    // Reorder for podium
     final first = topThree[0];
     final second = topThree.length > 1 ? topThree[1] : null;
     final third = topThree.length > 2 ? topThree[2] : null;
@@ -526,7 +518,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
             ),
           const SizedBox(width: 12),
 
-          // 1st Place (Tallest)
+          // 1st Place
           Expanded(
             child: _buildPodiumItem(
               user: first,
@@ -563,7 +555,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        // Avatar with crown (if winner)
+        // Avatar with crown
         if (isWinner)
           Icon(
             Icons.auto_awesome,
@@ -711,7 +703,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
                       child: Icon(user.avatar, color: AppColors.primaryPurple),
                     ),
 
-                    // Green dot (online)
+                    // Green dot
                     Positioned(
                       bottom: 2,
                       right: 2,

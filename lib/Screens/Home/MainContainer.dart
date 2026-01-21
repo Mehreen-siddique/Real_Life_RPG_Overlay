@@ -42,20 +42,6 @@ class _MainContainerScreenState extends State<MainContainerScreen> {
           onTap: (index) {
             setState(() => _currentIndex = index
             );
-
-            // if (index == 2 || index == 3) {
-            //   ScaffoldMessenger.of(context).showSnackBar(
-            //     SnackBar(
-            //       content: Text(
-            //         index == 2 ? 'AR Pet - Coming Soon!' : 'Social Hub - Coming Soon!',
-            //         style: const TextStyle(fontWeight: FontWeight.bold),
-            //       ),
-            //       backgroundColor: AppColors.primaryPurple,
-            //       behavior: SnackBarBehavior.floating,
-            //       duration: const Duration(milliseconds: 900),
-            //     ),
-            //   );
-            // }
           },
         ),
       ),

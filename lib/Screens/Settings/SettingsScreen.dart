@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:real_life_rpg/Screens/Authentication/ForgotPassword.dart';
 import 'package:real_life_rpg/Screens/profile/EditProfile.dart';
 import '../../utils/constants.dart';
 
@@ -133,7 +134,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               subtitle: 'Update your password',
               trailing: Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.textGray),
               onTap: () {
-                // Navigate to Change Password
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPasswordScreen()));
               },
             ),
             const SizedBox(height: 24),
