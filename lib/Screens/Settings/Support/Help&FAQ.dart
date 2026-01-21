@@ -124,11 +124,11 @@ class _HelpFaqScreenState extends State<HelpFaqScreen> {
 
             Text('Frequently Asked Questions', style: AppTextStyles.subheading),
             SizedBox(height: AppSizes.paddingSM),
-            //
-            // ..._buildFaqList(),
-            //
-            // SizedBox(height: AppSizes.paddingLG),
-            // _buildContactSupport(context),
+
+            ..._buildFaqList(),
+
+            SizedBox(height: AppSizes.paddingLG),
+            _buildContactSupport(context),
           ],
         ),
       ),
