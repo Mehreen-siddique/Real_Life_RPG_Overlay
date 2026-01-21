@@ -75,21 +75,21 @@ class _HelpFaqScreenState extends State<HelpFaqScreen> {
     ),
   ];
 
-  // @override
-  // void dispose() {
-  //   _searchController.dispose();
-  //   super.dispose();
-  // }
-  //
-  // List<_FaqItem> get _filteredFaqs {
-  //   if (_query.trim().isEmpty) return _faqs;
-  //   final q = _query.toLowerCase();
-  //   return _faqs.where((f) {
-  //     return f.category.toLowerCase().contains(q) ||
-  //         f.question.toLowerCase().contains(q) ||
-  //         f.answer.toLowerCase().contains(q);
-  //   }).toList();
-  // }
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  List<_FaqItem> get _filteredFaqs {
+    if (_query.trim().isEmpty) return _faqs;
+    final q = _query.toLowerCase();
+    return _faqs.where((f) {
+      return f.category.toLowerCase().contains(q) ||
+          f.question.toLowerCase().contains(q) ||
+          f.answer.toLowerCase().contains(q);
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,9 +121,9 @@ class _HelpFaqScreenState extends State<HelpFaqScreen> {
 
             _buildQuickActions(context),
             SizedBox(height: AppSizes.paddingLG),
-            //
-            // Text('Frequently Asked Questions', style: AppTextStyles.subheading),
-            // SizedBox(height: AppSizes.paddingSM),
+
+            Text('Frequently Asked Questions', style: AppTextStyles.subheading),
+            SizedBox(height: AppSizes.paddingSM),
             //
             // ..._buildFaqList(),
             //
@@ -279,62 +279,62 @@ class _HelpFaqScreenState extends State<HelpFaqScreen> {
     );
   }
 
-  // List<Widget> _buildFaqList() {
-  //   final items = _filteredFaqs;
-  //
-  //   if (items.isEmpty) {
-  //     return [
-  //       Container(
-  //         width: double.infinity,
-  //         padding: EdgeInsets.all(AppSizes.paddingLG),
-  //         decoration: BoxDecoration(
-  //           color: AppColors.whiteBackground,
-  //           borderRadius: BorderRadius.circular(AppSizes.radius),
-  //           boxShadow: AppShadows.cardShadow,
-  //         ),
-  //         child: Column(
-  //           children: [
-  //             Icon(Icons.search_off, size: 40, color: AppColors.textGray),
-  //             SizedBox(height: AppSizes.paddingSM),
-  //             Text('No results found', style: AppTextStyles.subheading),
-  //             SizedBox(height: 4),
-  //             Text(
-  //               'Try searching with different keywords.',
-  //               style: AppTextStyles.caption,
-  //               textAlign: TextAlign.center,
-  //             ),
-  //           ],
-  //         ),
-  //       )
-  //     ];
-  //   }
-  //
-  //   // group by category
-  //   final Map<String, List<_FaqItem>> grouped = {};
-  //   for (final f in items) {
-  //     grouped.putIfAbsent(f.category, () => []).add(f);
-  //   }
-  //
-  //   final widgets = <Widget>[];
-  //   grouped.forEach((category, list) {
-  //     widgets.add(
-  //       Padding(
-  //         padding: EdgeInsets.only(top: AppSizes.paddingSM, bottom: AppSizes.paddingSM),
-  //         child: Text(
-  //           category,
-  //           style: AppTextStyles.captionBold.copyWith(
-  //             color: AppColors.textGray,
-  //             letterSpacing: 0.6,
-  //           ),
-  //         ),
-  //       ),
-  //     );
-  //
-  //     widgets.addAll(list.map((f) => _faqTile(f)).toList());
-  //   });
-  //
-  //   return widgets;
-  // }
+  List<Widget> _buildFaqList() {
+    final items = _filteredFaqs;
+
+    if (items.isEmpty) {
+      return [
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(AppSizes.paddingLG),
+          decoration: BoxDecoration(
+            color: AppColors.whiteBackground,
+            borderRadius: BorderRadius.circular(AppSizes.radius),
+            boxShadow: AppShadows.cardShadow,
+          ),
+          child: Column(
+            children: [
+              Icon(Icons.search_off, size: 40, color: AppColors.textGray),
+              SizedBox(height: AppSizes.paddingSM),
+              Text('No results found', style: AppTextStyles.subheading),
+              SizedBox(height: 4),
+              Text(
+                'Try searching with different keywords.',
+                style: AppTextStyles.caption,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        )
+      ];
+    }
+
+    // group by category
+    final Map<String, List<_FaqItem>> grouped = {};
+    for (final f in items) {
+      grouped.putIfAbsent(f.category, () => []).add(f);
+    }
+
+    final widgets = <Widget>[];
+    grouped.forEach((category, list) {
+      widgets.add(
+        Padding(
+          padding: EdgeInsets.only(top: AppSizes.paddingSM, bottom: AppSizes.paddingSM),
+          child: Text(
+            category,
+            style: AppTextStyles.captionBold.copyWith(
+              color: AppColors.textGray,
+              letterSpacing: 0.6,
+            ),
+          ),
+        ),
+      );
+
+      widgets.addAll(list.map((f) => _faqTile(f)).toList());
+    });
+
+    return widgets;
+  }
 
   Widget _faqTile(_FaqItem f) {
     return Container(
