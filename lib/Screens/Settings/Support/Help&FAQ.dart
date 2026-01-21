@@ -116,8 +116,8 @@ class _HelpFaqScreenState extends State<HelpFaqScreen> {
             _buildHeroCard(),
             SizedBox(height: AppSizes.paddingMD),
 
-            // _buildSearchBar(),
-            // SizedBox(height: AppSizes.paddingMD),
+            _buildSearchBar(),
+            SizedBox(height: AppSizes.paddingMD),
             //
             // _buildQuickActions(context),
             // SizedBox(height: AppSizes.paddingLG),
@@ -180,43 +180,43 @@ class _HelpFaqScreenState extends State<HelpFaqScreen> {
     );
   }
 
-  // Widget _buildSearchBar() {
-  //   return Container(
-  //     padding: EdgeInsets.symmetric(horizontal: AppSizes.padding),
-  //     decoration: BoxDecoration(
-  //       color: AppColors.whiteBackground,
-  //       borderRadius: BorderRadius.circular(AppSizes.radius),
-  //       boxShadow: AppShadows.cardShadow,
-  //     ),
-  //     child: Row(
-  //       children: [
-  //         Icon(Icons.search, color: AppColors.primaryPurple),
-  //         SizedBox(width: AppSizes.paddingSM),
-  //         Expanded(
-  //           child: TextField(
-  //             controller: _searchController,
-  //             onChanged: (v) => setState(() => _query = v),
-  //             style: AppTextStyles.bodyDark,
-  //             decoration: InputDecoration(
-  //               border: InputBorder.none,
-  //               hintText: 'Search help (e.g., AR, quest, XP)',
-  //               hintStyle: AppTextStyles.body,
-  //             ),
-  //           ),
-  //         ),
-  //         if (_query.isNotEmpty)
-  //           IconButton(
-  //             icon: Icon(Icons.close, color: AppColors.textGray),
-  //             onPressed: () {
-  //               _searchController.clear();
-  //               setState(() => _query = '');
-  //             },
-  //           ),
-  //       ],
-  //     ),
-  //   );
-  // }
-  //
+  Widget _buildSearchBar() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: AppSizes.padding),
+      decoration: BoxDecoration(
+        color: AppColors.whiteBackground,
+        borderRadius: BorderRadius.circular(AppSizes.radius),
+        boxShadow: AppShadows.cardShadow,
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.search, color: AppColors.primaryPurple),
+          SizedBox(width: AppSizes.paddingSM),
+          Expanded(
+            child: TextField(
+              controller: _searchController,
+              onChanged: (v) => setState(() => _query = v),
+              style: AppTextStyles.bodyDark,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'Search help (e.g., AR, quest, XP)',
+                hintStyle: AppTextStyles.body,
+              ),
+            ),
+          ),
+          if (_query.isNotEmpty)
+            IconButton(
+              icon: Icon(Icons.close, color: AppColors.textGray),
+              onPressed: () {
+                _searchController.clear();
+                setState(() => _query = '');
+              },
+            ),
+        ],
+      ),
+    );
+  }
+
   // Widget _buildQuickActions(BuildContext context) {
   //   return Row(
   //     children: [
