@@ -118,9 +118,9 @@ class _HelpFaqScreenState extends State<HelpFaqScreen> {
 
             _buildSearchBar(),
             SizedBox(height: AppSizes.paddingMD),
-            //
-            // _buildQuickActions(context),
-            // SizedBox(height: AppSizes.paddingLG),
+
+            _buildQuickActions(context),
+            SizedBox(height: AppSizes.paddingLG),
             //
             // Text('Frequently Asked Questions', style: AppTextStyles.subheading),
             // SizedBox(height: AppSizes.paddingSM),
@@ -217,27 +217,27 @@ class _HelpFaqScreenState extends State<HelpFaqScreen> {
     );
   }
 
-  // Widget _buildQuickActions(BuildContext context) {
-  //   return Row(
-  //     children: [
-  //       Expanded(
-  //         child: _quickActionCard(
-  //           title: 'How to Create Quest',
-  //           icon: Icons.add_task,
-  //           onTap: () => _scrollToCategory('Quests'),
-  //         ),
-  //       ),
-  //       SizedBox(width: AppSizes.paddingSM),
-  //       Expanded(
-  //         child: _quickActionCard(
-  //           title: 'AR Troubleshoot',
-  //           icon: Icons.view_in_ar,
-  //           onTap: () => _scrollToCategory('AR'),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+  Widget _buildQuickActions(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: _quickActionCard(
+            title: 'How to Create Quest',
+            icon: Icons.add_task,
+            onTap: () => _scrollToCategory('Quests'),
+          ),
+        ),
+        SizedBox(width: AppSizes.paddingSM),
+        Expanded(
+          child: _quickActionCard(
+            title: 'AR Troubleshoot',
+            icon: Icons.view_in_ar,
+            onTap: () => _scrollToCategory('AR'),
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget _quickActionCard({
     required String title,
