@@ -16,6 +16,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home:  Scaffold(
         backgroundColor: AppColors.lightBackground,
         body: SafeArea(

@@ -15,65 +15,67 @@ class _HelpFaqScreenState extends State<HelpFaqScreen> {
   final List<_FaqItem> _faqs = [
     _FaqItem(
       category: 'Getting Started',
-      question: 'Real Life RPG Overlay app kya hai?',
+      question: 'What is the Real Life RPG Overlay app?',
       answer:
-      'Ye app aapki daily life ko RPG game ki tarah banata hai. Aap tasks ko “Quests” banate ho, complete karte ho, aur XP/Gold/Stats gain karte ho. Is se habit-building fun ho jati hai.',
+      'This app turns your real life into an RPG-style experience. You create daily tasks as “Quests”, complete them, and earn XP, Gold, and Stats. This makes habit-building more engaging and fun.',
     ),
     _FaqItem(
       category: 'Getting Started',
-      question: 'Character ka role kya hai?',
+      question: 'What is the role of the character?',
       answer:
-      'Character aapki progress represent karta hai (Level, XP, Stats). Jab aap quests complete karte ho to aapka character grow hota hai.',
+      'The character represents your personal progress, including Level, XP, and Stats. As you complete quests, your character grows and evolves, visually reflecting your achievements.',
     ),
     _FaqItem(
       category: 'Quests',
-      question: 'Quest create kaise karun?',
+      question: 'How can I create a quest?',
       answer:
-      'Quest tab ya Create button se aap title, description, difficulty (Easy/Medium/Hard), aur animation style set kar sakte ho. Save karte hi quest list mein show ho jata hai.',
+      'You can create a quest from the Quest tab or by using the Create button. Set a title, description, difficulty level (Easy, Medium, Hard), and animation style. Once saved, the quest appears in your quest list.',
     ),
     _FaqItem(
       category: 'Quests',
-      question: 'Quest completion kaise hoti hai?',
+      question: 'How is a quest completed?',
       answer:
-      'Aap manual complete kar sakte ho (checkbox / complete button). Future mein aap auto-detection add kar sakte ho (steps/location/app-usage based) jahan possible ho.',
+      'Quests can currently be completed manually using a complete button or checkbox. In future versions, automatic detection will be added using activity recognition, location, or app usage where possible.',
     ),
     _FaqItem(
       category: 'AR',
-      question: 'AR Character kaise kaam karta hai?',
+      question: 'How does the AR character work?',
       answer:
-      'AR screen mein aapka selected character 3D model (Mixamo GLB) show hota hai. Aap Idle/Action animation toggle kar sakte ho. AR mode viewer ke andar AR icon se start hota hai.',
+      'On the AR screen, your selected character appears as a 3D model (Mixamo GLB). You can toggle between idle and action animations. AR mode is launched using the AR icon inside the viewer.',
     ),
     _FaqItem(
       category: 'AR',
-      question: 'AR mode start nahi ho raha, kya karun?',
+      question: 'AR mode is not starting. What should I do?',
       answer:
-      'Ensure karein: (1) device AR-supported ho, (2) camera permission allow ho, (3) Android minSdk 24+ aur compileSdk 35 ho (agar Gradle error aa raha ho).',
+      'Please ensure that: (1) your device supports AR, (2) camera permissions are granted, and (3) the Android minimum SDK is 24 or higher with a compatible compile SDK.',
     ),
     _FaqItem(
       category: 'Rewards',
-      question: 'XP, Gold aur Stats ka kya use hai?',
+      question: 'What is the use of XP, Gold, and Stats?',
       answer:
-      'XP se level up hota hai, Gold future rewards/shop (optional) ke liye use ho sakta hai, aur Stats (Health/Strength/Intelligence) aapki habits ka gamified score hota hai.',
+      'XP is used to level up your character, Gold can be used for future rewards or in-app shops, and Stats such as Health, Strength, and Intelligence represent your habit performance in a gamified way.',
     ),
     _FaqItem(
       category: 'Social / Family',
-      question: 'Family/Leaderboard ka purpose kya hai?',
+      question: 'What is the purpose of Family and Leaderboards?',
       answer:
-      'Family group ya friends ke saath motivation hoti hai. Leaderboard se progress compare hoti hai, aur challenges se fun competition create hota hai.',
+      'Family groups and leaderboards help create motivation through friendly competition. You can compare progress, participate in challenges, and stay engaged with others.',
     ),
     _FaqItem(
       category: 'Account & Data',
-      question: 'Mera data kahan save hota hai?',
+      question: 'Where is my data stored?',
       answer:
-      'Abhi basic version mein local data ho sakta hai. Backend integration ke baad (Firebase/Database) aapka data secure storage mein store hoga.',
+      'In the current version, data may be stored locally. After backend integration (such as Firebase or a database), your data will be securely stored in cloud-based storage.',
     ),
     _FaqItem(
       category: 'Account & Data',
-      question: 'Main apna account delete ya logout kaise karun?',
+      question: 'How can I log out or delete my account?',
       answer:
-      'Settings screen se Logout / Delete Account options milte hain. Delete account future backend implementation mein permanently remove karega.',
+      'You can log out or request account deletion from the Settings screen. Permanent account deletion will be fully implemented after backend integration.',
     ),
   ];
+
+
 
   @override
   void dispose() {

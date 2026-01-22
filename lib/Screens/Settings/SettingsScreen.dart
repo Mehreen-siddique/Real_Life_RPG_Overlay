@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:real_life_rpg/Screens/Authentication/ForgotPassword.dart';
+import 'package:real_life_rpg/Screens/Settings/Support/Help&FAQ.dart';
+import 'package:real_life_rpg/Screens/Settings/Support/PrivacyPolicy.dart';
 import 'package:real_life_rpg/Screens/profile/EditProfile.dart';
 import '../../utils/constants.dart';
 
@@ -147,7 +149,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               subtitle: 'Get help and support',
               trailing: Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.textGray),
               onTap: () {
-                // Navigate to Help
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>HelpFaqScreen()));
               },
             ),
             const SizedBox(height: 12),
@@ -158,6 +160,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               trailing: Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.textGray),
               onTap: () {
                 // Navigate to Privacy Policy
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>PrivacyPolicyScreen()));
               },
             ),
             const SizedBox(height: 12),
