@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:real_life_rpg/utils/constants.dart';
 
-
-class PrivacyPolicyScreen extends StatelessWidget {
-  const PrivacyPolicyScreen({Key? key}) : super(key: key);
+class TermsConditionsScreen extends StatelessWidget {
+  const TermsConditionsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +12,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          'Privacy Policy',
+          'Terms & Conditions',
           style: AppTextStyles.heading.copyWith(fontSize: 20),
         ),
         centerTitle: true,
@@ -30,62 +29,67 @@ class PrivacyPolicyScreen extends StatelessWidget {
             _headerCard(),
             SizedBox(height: AppSizes.paddingMD),
 
-            _policySection(
-              title: '1. Overview',
+            _termsSection(
+              title: '1. Acceptance of Terms',
               body:
-              'Real Life RPG Overlay is a student project application. This Privacy Policy explains how the app collects, uses, and handles user data.',
+              'By accessing or using Real Life RPG Overlay, you agree to be bound by these Terms & Conditions. If you do not agree with any part of these terms, you must discontinue use of the application immediately.',
             ),
-            _policySection(
-              title: '2. What Data We Collect',
+            _termsSection(
+              title: '2. Description of Service',
               body:
-              'The app may collect basic profile information (such as name or class), quest-related data (including titles, difficulty, and completion status), achievement progress, and optional camera or gallery images if the user chooses to provide them.',
+              'Real Life RPG Overlay is a gamified productivity application developed as a student project. The app allows users to track tasks, progress, and achievements in an RPG-style format for personal use only.',
             ),
-            _policySection(
-              title: '3. Why We Collect Data',
+            _termsSection(
+              title: '3. Eligibility',
               body:
-              'Collected data is used to track user progress, calculate experience points and levels, enhance the in-app character experience, and support future features such as family or leaderboard systems.',
+              'The app is intended for general audiences. Users are responsible for ensuring that their use of the app complies with applicable local laws and regulations.',
             ),
-            _policySection(
-              title: '4. Camera & Photos',
+            _termsSection(
+              title: '4. User Responsibilities',
               body:
-              'Camera or gallery access is only used when the user explicitly chooses to do so, such as for avatar or image customization features. The app does not access the camera or photos in the background.',
+              'Users are responsible for managing their own quests, experience points (XP), and progress. The app does not guarantee data retention or recovery, particularly in student or experimental versions.',
             ),
-            _policySection(
-              title: '5. Storage & Security',
+            _termsSection(
+              title: '5. Camera & Media Usage',
               body:
-              'User data may be stored locally on the device or on a backend service such as Firebase. Production-level security practices, including authentication rules, permissions, and secure storage, may be implemented as the project evolves.',
+              'If users choose to access camera or gallery features, such access is used solely for intended app features such as avatars or customization. The app does not access media without user consent.',
             ),
-            _policySection(
-              title: '6. Sharing & Third Parties',
+            _termsSection(
+              title: '6. Intellectual Property',
               body:
-              'User data is not sold or shared with third parties. If analytics or cloud services are introduced in the future, they will be used solely for application improvement purposes.',
+              'All user interface elements, concepts, designs, and source code are the intellectual property of the developer. Unauthorized reuse, copying, or redistribution is strictly prohibited.',
             ),
-            _policySection(
-              title: '7. Your Controls',
+            _termsSection(
+              title: '7. Feature Changes',
               body:
-              'Users can edit or delete quests within the app. Logout options are available, and a “delete account” feature may be introduced in future backend-enabled versions.',
+              'The developer reserves the right to add, modify, or remove features at any time without prior notice. As a student project, some features may be experimental or subject to change.',
             ),
-            _policySection(
-              title: '8. Changes to This Policy',
+            _termsSection(
+              title: '8. Limitation of Liability',
               body:
-              'This Privacy Policy may be updated as the project evolves. Any updates will be reflected within the application.',
+              'Use of the application is at your own risk. The developer shall not be held liable for any direct, indirect, incidental, or consequential damages arising from the use of the app.',
             ),
-            _policySection(
-              title: '9. Contact',
+            _termsSection(
+              title: '9. Termination',
               body:
-              'If you have any questions regarding this Privacy Policy, you may contact support through the app’s Help or FAQ section when backend support becomes available.',
+              'Access to the application may be restricted or terminated if a user violates these Terms & Conditions.',
+            ),
+            _termsSection(
+              title: '10. Updates to Terms',
+              body:
+              'These Terms & Conditions may be updated from time to time. Any changes will be reflected within the application. Continued use of the app constitutes acceptance of the updated terms.',
             ),
 
+
             SizedBox(height: AppSizes.paddingLG),
-            _footerNote(context),
+            _footerNote(),
           ],
         ),
       ),
     );
   }
 
-
-  ///Header Section
+  /// Header Section
   Widget _headerCard() {
     return Container(
       width: double.infinity,
@@ -104,7 +108,11 @@ class PrivacyPolicyScreen extends StatelessWidget {
               color: AppColors.whiteBackground.withOpacity(0.18),
               borderRadius: BorderRadius.circular(AppSizes.radiusSM),
             ),
-            child: Icon(Icons.privacy_tip_outlined, color: AppColors.textWhite, size: 28),
+            child: Icon(
+              Icons.gavel_outlined,
+              color: AppColors.textWhite,
+              size: 28,
+            ),
           ),
           SizedBox(width: AppSizes.padding),
           Expanded(
@@ -112,12 +120,12 @@ class PrivacyPolicyScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Your privacy matters',
+                  'Fair use matters',
                   style: AppTextStyles.headingWhite.copyWith(fontSize: 18),
                 ),
                 SizedBox(height: 4),
                 Text(
-                  'Read how we handle your data in the RPG journey.',
+                  'Understand the rules of your RPG journey.',
                   style: AppTextStyles.bodyWhite.copyWith(
                     fontSize: 12,
                     color: AppColors.textWhite.withOpacity(0.85),
@@ -131,11 +139,8 @@ class PrivacyPolicyScreen extends StatelessWidget {
     );
   }
 
-
-
-  ///Policy Section
-
-  Widget _policySection({required String title, required String body}) {
+  /// Terms Section
+  Widget _termsSection({required String title, required String body}) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(bottom: AppSizes.paddingSM),
@@ -160,9 +165,8 @@ class PrivacyPolicyScreen extends StatelessWidget {
     );
   }
 
-
-  ///FooterNote Section
-  Widget _footerNote(BuildContext context) {
+  /// Footer Note
+  Widget _footerNote() {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.padding),
@@ -177,7 +181,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           SizedBox(width: AppSizes.paddingSM),
           Expanded(
             child: Text(
-              'Note: This policy applies to a student project. For production deployment, a professionally reviewed privacy policy and consent flow are recommended.',
+'These Terms & Conditions are provided for a student project and early-stage application. For commercial release, professional legal review is recommended.' ,
               style: AppTextStyles.caption.copyWith(color: AppColors.textDark),
             ),
           ),
