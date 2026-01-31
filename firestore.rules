@@ -1,0 +1,335 @@
+rules_version = '2';
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// FIRESTORE SECURITY RULES
+// Real Life RPG - Final Year Project 2024-2025
+// ═══════════════════════════════════════════════════════════════════════════════
+//
+// These rules ensure:
+// • Users can only update their own data
+// • Global leaderboard is readable by all authenticated users
+// • Party data is accessible only to members
+// • Notifications are private to each user
+//
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // HELPER FUNCTIONS
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    // Check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Check if the user is accessing their own document
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Check if user is accessing their own data field
+    function isOwnerByField(fieldName) {
+      return isAuthenticated() && request.auth.uid == resource.data[fieldName];
+    }
+
+    // Check if the user exists in the users collection
+    function userExists() {
+      return exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    // Validate that the data contains only allowed fields
+    function hasOnlyFields(fields) {
+      return request.resource.data.keys().hasAll(fields) &&
+             request.resource.data.keys().hasOnly(fields);
+    }
+
+    // Check if user is a member of a party
+    function isPartyMember(partyId) {
+      return isAuthenticated() && 
+             get(/databases/$(database)/documents/parties/$(partyId)).data.memberIds.hasAny([request.auth.uid]);
+    }
+
+    // Check if user is the party leader
+    function isPartyLeader(partyId) {
+      return isAuthenticated() && 
+             get(/databases/$(database)/documents/parties/$(partyId)).data.leaderId == request.auth.uid;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // USERS COLLECTION
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    match /users/{userId} {
+      // Allow read: Any authenticated user can read user profiles
+      // This enables the global leaderboard and social features
+      allow read: if isAuthenticated();
+
+      // Allow create: User can create their own profile
+      allow create: if isOwner(userId) &&
+                      request.resource.data.keys().hasAll(['username', 'email', 'createdAt']) &&
+                      request.resource.data.createdAt == request.time;
+
+      // Allow update: User can update their own data
+      // But NOT sensitive fields like isAdmin, role, etc.
+      allow update: if isOwner(userId) &&
+                      !request.resource.data.diff(resource.data).affectedKeys().hasAny(['isAdmin', 'role', 'banned']);
+
+      // Allow delete: Only the user themselves
+      allow delete: if isOwner(userId);
+
+      // ═════════════════════════════════════════════════════════════════════════
+      // USER NOTIFICATIONS SUBCOLLECTION
+      // ═════════════════════════════════════════════════════════════════════════
+
+      match /notifications/{notificationId} {
+        // Only the user can read/write their own notifications
+        allow read, write: if isOwner(userId);
+      }
+
+      // ═════════════════════════════════════════════════════════════════════════
+      // USER BADGES SUBCOLLECTION
+      // ═════════════════════════════════════════════════════════════════════════
+
+      match /badges/{badgeId} {
+        // User can read their badges
+        // Only system/cloud functions can write badges
+        allow read: if isOwner(userId);
+        allow write: if false; // Only via cloud functions
+      }
+
+      // ═════════════════════════════════════════════════════════════════════════
+      // USER INVENTORY SUBCOLLECTION
+      // ═════════════════════════════════════════════════════════════════════════
+
+      match /inventory/{itemId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // ═════════════════════════════════════════════════════════════════════════
+      // USER PARTY INVITATIONS SUBCOLLECTION
+      // ═════════════════════════════════════════════════════════════════════════
+
+      match /partyInvitations/{invitationId} {
+        // User can read their invitations
+        allow read: if isOwner(userId);
+        // User can update status (accept/decline)
+        allow update: if isOwner(userId) &&
+                        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']);
+        // Only system can create/delete
+        allow create, delete: if false;
+      }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // USER ACHIEVEMENTS SUBCOLLECTION
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    match /achievements/{achievementId} {
+      // Achievements are private to each user.
+      allow read: if isOwner(userId);
+      allow create, update: if isOwner(userId);
+      allow delete: if false;
+    }
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // PARTIES COLLECTION
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    match /parties/{partyId} {
+      // Allow read: Any authenticated user can see public party info
+      allow read: if isAuthenticated();
+
+      // Allow create: Any authenticated user can create a party
+      allow create: if isAuthenticated() &&
+                      request.resource.data.leaderId == request.auth.uid &&
+                      request.resource.data.memberIds[0] == request.auth.uid;
+
+      // Allow update: Only party leader or system
+      allow update: if isPartyLeader(partyId) || 
+                      (isAuthenticated() && 
+                       request.resource.data.diff(resource.data).affectedKeys().hasOnly(['activeQuestProgress']));
+
+      // Allow delete: Only party leader
+      allow delete: if isPartyLeader(partyId);
+
+      // ═════════════════════════════════════════════════════════════════════════
+      // PARTY MEMBER CONTRIBUTIONS SUBCOLLECTION
+      // ═════════════════════════════════════════════════════════════════════════
+
+      match /memberContributions/{userId} {
+        // Members can read all contributions
+        allow read: if isPartyMember(partyId);
+        // Users can update their own contribution
+        allow create, update: if isOwner(userId) && isPartyMember(partyId);
+        allow delete: if false;
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // PARTY INVITATIONS COLLECTION
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    match /partyInvitations/{invitationId} {
+      // Allow read: Inviter or invitee can read
+      allow read: if isAuthenticated() &&
+                    (resource.data.fromUserId == request.auth.uid ||
+                     resource.data.toUserId == request.auth.uid);
+
+      // Allow create: Any authenticated user can send invitation
+      allow create: if isAuthenticated() &&
+                      request.resource.data.fromUserId == request.auth.uid;
+
+      // Allow update: Invitee can accept/decline, inviter can cancel
+      allow update: if isAuthenticated() &&
+                    (resource.data.toUserId == request.auth.uid ||
+                     resource.data.fromUserId == request.auth.uid);
+
+      // Allow delete: Inviter or invitee
+      allow delete: if isAuthenticated() &&
+                    (resource.data.fromUserId == request.auth.uid ||
+                     resource.data.toUserId == request.auth.uid);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // CHALLENGES COLLECTION
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    match /challenges/{challengeId} {
+      // Allow read: Any authenticated user
+      allow read: if isAuthenticated();
+
+      // Allow create: Any authenticated user
+      allow create: if isAuthenticated() &&
+                      request.resource.data.createdBy == request.auth.uid;
+
+      // Allow update: Creator or system
+      allow update: if isAuthenticated() &&
+                    (resource.data.createdBy == request.auth.uid ||
+                     request.resource.data.diff(resource.data).affectedKeys().hasOnly(['activeQuestProgress', 'participantIds']));
+
+      // Allow delete: Only creator
+      allow delete: if isAuthenticated() && resource.data.createdBy == request.auth.uid;
+
+      // ═════════════════════════════════════════════════════════════════════════
+      // CHALLENGE PARTICIPANTS SUBCOLLECTION
+      // ═════════════════════════════════════════════════════════════════════════
+
+      match /participants/{userId} {
+        allow read: if isAuthenticated();
+        allow create, update: if isOwner(userId);
+        allow delete: if isOwner(userId) || 
+                        (isAuthenticated() && 
+                         get(/databases/$(database)/documents/challenges/$(challengeId)).data.createdBy == request.auth.uid);
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // CHALLENGE INVITATIONS COLLECTION
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    match /challengeInvitations/{invitationId} {
+      allow read: if isAuthenticated() &&
+                  (resource.data.fromUserId == request.auth.uid ||
+                   resource.data.toUserId == request.auth.uid);
+      allow create: if isAuthenticated() &&
+                    request.resource.data.fromUserId == request.auth.uid;
+      allow update: if isAuthenticated() &&
+                    (resource.data.toUserId == request.auth.uid ||
+                     resource.data.fromUserId == request.auth.uid);
+      allow delete: if isAuthenticated() &&
+                    (resource.data.fromUserId == request.auth.uid ||
+                     resource.data.toUserId == request.auth.uid);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // QUESTS COLLECTION
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    match /quests/{questId} {
+      // Allow read: Any authenticated user (for public quests)
+      // OR user can read their own assigned quests
+      allow read: if isAuthenticated();
+
+      // Allow create: Any authenticated user can create a quest
+      allow create: if isAuthenticated() &&
+                      request.resource.data.keys().hasAll(['title', 'userId', 'createdAt']) &&
+                      request.resource.data.userId == request.auth.uid;
+
+      // Allow update: Quest owner or system
+      allow update: if isAuthenticated() &&
+                    (resource.data.userId == request.auth.uid ||
+                     request.resource.data.diff(resource.data).affectedKeys().hasOnly(['completed', 'completedAt', 'progress']));
+
+      // Allow delete: Quest owner only
+      allow delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // QUEST ASSIGNMENTS COLLECTION
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    match /questAssignments/{assignmentId} {
+      allow read: if isAuthenticated() &&
+                  (resource.data.userId == request.auth.uid ||
+                   resource.data.assignedBy == request.auth.uid);
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() &&
+                    (resource.data.userId == request.auth.uid ||
+                     resource.data.assignedBy == request.auth.uid);
+      allow delete: if isAuthenticated() &&
+                    (resource.data.userId == request.auth.uid ||
+                     resource.data.assignedBy == request.auth.uid);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // PARTY GIFT TRANSACTIONS COLLECTION
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    match /partyGiftTransactions/{transactionId} {
+      // Users can read transactions they were part of
+      allow read: if isAuthenticated() &&
+                  (resource.data.fromUserId == request.auth.uid ||
+                   resource.data.toUserId == request.auth.uid);
+      
+      // Only system/cloud functions can create
+      allow create: if false;
+      
+      // No updates or deletes
+      allow update, delete: if false;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // GLOBAL LEADERBOARD VIEW (if using separate collection)
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    match /leaderboard/{userId} {
+      // Anyone authenticated can read leaderboard
+      allow read: if isAuthenticated();
+      // Only cloud functions can write
+      allow write: if false;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // ADMIN COLLECTION (for admin-only operations)
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    match /admin/{document=**} {
+      // Only admin users can read/write
+      allow read, write: if isAuthenticated() &&
+                          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // CONFIG COLLECTION (app settings)
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    match /config/{document=**} {
+      // Anyone can read config
+      allow read: if true;
+      // Only cloud functions can write
+      allow write: if false;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1055121686996",
+    "project_id": "goalplay-bcd21",
+    "storage_bucket": "goalplay-bcd21.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055121686996:android:05306f5e6106aeb5e89641",
+        "android_client_info": {
+          "package_name": "com.example.real_life_rpg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1055121686996-8hvsqf5ha95ld930b9t92pmrnaqnmm10.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.real_life_rpg",
+            "certificate_hash": "360c660a2f920d588da4c243bf794c7eeb39e8fd"
+          }
+        },
+        {
+          "client_id": "1055121686996-dbga8h9ef3tn8ru3or43a01g8k1ts7gc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADfXsPl6FZWdy6WnbnyDi28JFs8gP3ODg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1055121686996-dbga8h9ef3tn8ru3or43a01g8k1ts7gc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1055121686996-gab0f225dbfin6tgnau44s4ekp097li0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.realLifeRpg"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
