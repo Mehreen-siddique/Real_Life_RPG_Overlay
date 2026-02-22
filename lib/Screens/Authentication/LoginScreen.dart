@@ -301,14 +301,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTap: () {},
                       ),
                     ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: _buildSocialButton(
-                        icon: Icons.facebook_rounded,
-                        label: 'Facebook',
-                        onTap: () {},
-                      ),
-                    ),
+
                   ],
                 ),
                 const SizedBox(height: 30),
