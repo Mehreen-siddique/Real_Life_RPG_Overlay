@@ -1,9 +1,11 @@
 // screens/auth/login_screen.dart
-
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:real_life_rpg/Screens/Authentication/ForgotPassword.dart';
 import 'package:real_life_rpg/Screens/Authentication/SignupScreen.dart';
 import 'package:real_life_rpg/Screens/Home/MainContainer.dart';
+import '../../Services/AuthenticationServices/AuthServices.dart';
 import '../../utils/constants.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,11 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
   bool _isLoading = false;
+  Timer? _errorTimer;
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _errorTimer?.cancel();
     super.dispose();
   }
 
@@ -73,8 +77,18 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
 
+  void _clearErrorAfterDelay() {
+    _errorTimer?.cancel();
+    _errorTimer = Timer(const Duration(seconds: 5), () {
+      if (mounted) {
+        context.read<AuthService>().clearError();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final authService = context.watch<AuthService>();
     return
       Scaffold(
       backgroundColor: AppColors.lightBackground,
@@ -298,10 +312,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: _buildSocialButton(
                         icon: Icons.g_mobiledata,
                         label: 'Google',
-                        onTap: () {},
+                        onTap: () async {
+                          final authService = context.read<AuthService>();
+                          final success = await authService.signInWithGoogle();
+
+                          if (success && mounted) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => MainContainerScreen()),
+                            );
+                          }
+                        },
                       ),
                     ),
-
                   ],
                 ),
                 const SizedBox(height: 30),

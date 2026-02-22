@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:real_life_rpg/Screens/SplashScreen.dart';
+
+import 'Services/AuthenticationServices/AuthServices.dart';
 
 
 void main() async {
@@ -19,9 +22,23 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthService()),
+      ],
+      child: MaterialApp(
+        title: 'Goal Play',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: const Color(0xFFF5F5F5),
+          useMaterial3: true,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const SplashScreen(),
+        },
+      ),
     );
   }
 }
