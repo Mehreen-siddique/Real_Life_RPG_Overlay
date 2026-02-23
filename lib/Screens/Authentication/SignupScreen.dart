@@ -1,8 +1,12 @@
 // screens/auth/SignUp_screen.dart
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:real_life_rpg/Screens/Authentication/LoginScreen.dart';
 import 'package:real_life_rpg/Screens/Home/MainContainer.dart';
+import '../../Services/AuthenticationServices/AuthServices.dart';
 import '../../utils/constants.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -14,32 +18,105 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
+
   final _emailController = TextEditingController();
+
   final _passwordController = TextEditingController();
+
+  final _confirmPasswordController = TextEditingController();
+
+  final _nameController = TextEditingController();
+
   bool _obscurePassword = true;
+
+  Timer? _errorTimer;
   bool _isLoading = false;
 
 
-  Future<void> _SignUp() async {
+
+  @override
+
+  void dispose() {
+
+    _emailController.dispose();
+
+    _passwordController.dispose();
+
+    _confirmPasswordController.dispose();
+
+    _nameController.dispose();
+
+    _errorTimer?.cancel();
+
+    super.dispose();
+
+  }
+
+  void _handleSignup() async {
+
     if (_formKey.currentState!.validate()) {
-      setState(() => _isLoading = true);
 
-      // Simulate API call
-      await Future.delayed(const Duration(seconds: 2));
+      final authService = context.read<AuthService>();
 
-      setState(() => _isLoading = false);
+      authService.clearError(); // Clear previous errors
 
-      if (mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => MainContainerScreen()),
-        );
+
+
+      final success = await authService.signUp(
+
+        email: _emailController.text.trim(),
+
+        password: _passwordController.text,
+
+        name: _nameController.text.trim(),
+
+      );
+
+
+
+      if (!success && mounted) {
+
+        _clearErrorAfterDelay(); // Auto-clear error after 5 seconds
+
       }
+
+
+
+      if (success && mounted) {
+
+        // Navigate to home screen
+
+        Navigator.pushReplacement(context,
+
+            MaterialPageRoute(builder: (context) => MainContainerScreen()));
+
+      }
+
     }
+
   }
 
 
+
+  void _clearErrorAfterDelay() {
+
+    _errorTimer?.cancel();
+
+    _errorTimer = Timer(const Duration(seconds: 5), () {
+
+      if (mounted) {
+
+        context.read<AuthService>().clearError();
+
+      }
+
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    final authService = context.watch<AuthService>();
     return
       Scaffold(
       backgroundColor: AppColors.lightBackground,
@@ -60,33 +137,108 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     style: AppTextStyles.heading.copyWith(fontSize: 32),
                   ),
                 ),
-                // const SizedBox(height: 8),
-                // Text(
-                //   'Login to continue your journey',
-                //   style: AppTextStyles.body.copyWith(fontSize: 16),
-                // ),
+
                 const SizedBox(height: 60),
+                Text(
 
-                // // Logo
-                // Center(
-                //   child: Container(
-                //     width: 100,
-                //     height: 100,
-                //     decoration: BoxDecoration(
-                //       gradient: AppGradients.primaryPurple,
-                //       borderRadius: BorderRadius.circular(25),
-                //       boxShadow: AppShadows.glowPurple,
-                //     ),
-                //     child: const Icon(
-                //       Icons.emoji_events_rounded,
-                //       size: 60,
-                //       color: AppColors.textWhite,
-                //     ),
-                //   ),
-                // ),
-                // const SizedBox(height: 60),
+                  'userName',
 
-                // Email Field
+                  style: AppTextStyles.bodyDark.copyWith(
+
+                    fontWeight: FontWeight.w600,
+
+                    fontSize: 15,
+
+                  ),
+
+                ),
+
+                const SizedBox(height: 8),
+
+                TextFormField(
+
+                  controller: _nameController,
+
+                  keyboardType: TextInputType.emailAddress,
+
+                  decoration: InputDecoration(
+
+                    hintText: 'Enter your username',
+
+                    hintStyle: AppTextStyles.body,
+
+                    prefixIcon: const Icon(
+
+                      Icons.email_outlined,
+
+                      color: AppColors.primaryPurple,
+
+                    ),
+
+                    filled: true,
+
+                    fillColor: AppColors.whiteBackground,
+
+                    border: OutlineInputBorder(
+
+                      borderRadius: BorderRadius.circular(AppSizes.radiusSM),
+
+                      borderSide: BorderSide(
+
+                        color: AppColors.borderLight,
+
+                      ),
+
+                    ),
+
+                    enabledBorder: OutlineInputBorder(
+
+                      borderRadius: BorderRadius.circular(AppSizes.radiusSM),
+
+                      borderSide: BorderSide(
+
+                        color: AppColors.borderLight,
+
+                      ),
+
+                    ),
+
+                    focusedBorder: OutlineInputBorder(
+
+                      borderRadius: BorderRadius.circular(AppSizes.radiusSM),
+
+                      borderSide: BorderSide(
+
+                        color: AppColors.primaryPurple,
+
+                        width: 1.5,
+
+                      ),
+
+                    ),
+
+                  ),
+
+                  validator: (value) {
+
+                    if (value == null || value.isEmpty) {
+
+                      return 'Please enter your username';
+
+                    }
+
+                    // if (!value.contains('@')) {
+
+                    //   return 'Please enter a valid email';
+
+                    // }
+
+                    return null;
+
+                  },
+
+                ),
+                const SizedBox(height: 8),
                 Text(
                   'Email',
                   style: AppTextStyles.bodyDark.copyWith(
@@ -213,7 +365,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 8),
                 TextFormField(
-                  controller: _passwordController,
+                  controller: _confirmPasswordController,
                   obscureText: _obscurePassword,
                   decoration: InputDecoration(
                     hintText: 'Enter your password',
@@ -275,7 +427,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   width: double.infinity,
                   height: AppSizes.buttonHeight,
                   child: ElevatedButton(
-                    onPressed: _isLoading ? null : _SignUp,
+                    onPressed: authService.status == AuthStatus.loading ? null : _handleSignup,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryPurple,
                       shape: RoundedRectangleBorder(
