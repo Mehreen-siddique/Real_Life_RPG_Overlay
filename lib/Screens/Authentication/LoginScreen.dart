@@ -31,19 +31,22 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  Future<void> _login() async {
+  void _handleLogin() async {
     if (_formKey.currentState!.validate()) {
-      setState(() => _isLoading = true);
+      final authService = context.read<AuthService>();
+      authService.clearError(); // Clear previous errors
 
-      // Simulate API call
-      await Future.delayed(const Duration(seconds: 2));
+      final success = await authService.login(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+      );
 
-      setState(() => _isLoading = false);
+      if (!success && mounted) {
+        _clearErrorAfterDelay(); // Auto-clear error after 5 seconds
+      }
 
-      if (mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => MainContainerScreen()),
-        );
+      if (success && mounted) {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainContainerScreen()));
       }
     }
   }
@@ -261,7 +264,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   height: AppSizes.buttonHeight,
                   child: ElevatedButton(
-                    onPressed: _isLoading ? null : _login,
+                    onPressed: authService.status == AuthStatus.loading ? null : _handleLogin,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryPurple,
                       shape: RoundedRectangleBorder(

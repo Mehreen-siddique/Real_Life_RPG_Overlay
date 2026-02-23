@@ -324,4 +324,93 @@ class AuthService with ChangeNotifier {
   }
 
 
+
+  // ==================== LOGIN ====================
+  Future<bool> login({
+
+    required String email,
+
+    required String password,
+
+  }) async {
+
+    try {
+
+      _status = AuthStatus.loading;
+
+      _errorMessage = null;
+
+      notifyListeners();
+
+
+
+      // Basic validation
+
+      if (email.isEmpty) {
+
+        _errorMessage = 'Email is required';
+
+        _status = AuthStatus.unauthenticated;
+
+        notifyListeners();
+
+        return false;
+
+      }
+
+
+
+      if (password.isEmpty) {
+
+        _errorMessage = 'Password is required';
+
+        _status = AuthStatus.unauthenticated;
+
+        notifyListeners();
+
+        return false;
+
+      }
+
+
+
+      // Sign in with Firebase Auth
+
+      await _auth.signInWithEmailAndPassword(
+
+        email: email.trim(),
+
+        password: password,
+
+      );
+
+
+
+      _user = _auth.currentUser;
+
+      _status = AuthStatus.authenticated;
+
+      notifyListeners();
+
+      return true;
+
+    } on FirebaseAuthException catch (e) {
+
+      _handleAuthError(e);
+
+      return false;
+
+    } catch (e) {
+
+      _errorMessage = 'Login failed: ${e.toString()}';
+
+      _status = AuthStatus.unauthenticated;
+
+      notifyListeners();
+
+      return false;
+
+    }
+
+  }
 }
