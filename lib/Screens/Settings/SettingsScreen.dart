@@ -1,11 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:real_life_rpg/Screens/Authentication/ForgotPassword.dart';
 import 'package:real_life_rpg/Screens/Settings/Support/Help&FAQ.dart';
 import 'package:real_life_rpg/Screens/Settings/Support/PrivacyPolicy.dart';
 import 'package:real_life_rpg/Screens/Settings/Support/TermsAndConditions.dart';
 import 'package:real_life_rpg/Screens/profile/EditProfile.dart';
+import '../../Services/AuthenticationServices/AuthServices.dart';
 import '../../utils/constants.dart';
+import '../Authentication/LoginScreen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -20,9 +25,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _vibrationEnabled = false;
   bool _darkModeEnabled = false;
   String _language = 'English';
+  Timer? _errorTimer;
+
+
+  void _handleLogout() async {
+    final authService = context.read<AuthService>();
+    authService.clearError();
+
+    await authService.logout();
+
+    if (!mounted) return;
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+          (route) => false,
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
+    final authService = context.watch<AuthService>();
+
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
       appBar: AppBar(
@@ -326,6 +352,42 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  // void _showLogoutDialog() {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       title: Text(
+  //         'Logout',
+  //         style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+  //       ),
+  //       content: Text(
+  //         'Are you sure you want to logout?',
+  //         style: GoogleFonts.poppins(),
+  //       ),
+  //       actions: [
+  //         TextButton(
+  //           onPressed: () => Navigator.pop(context),
+  //           child: Text(
+  //             'Cancel',
+  //             style: GoogleFonts.poppins(color: AppColors.textGray),
+  //           ),
+  //         ),
+  //         TextButton(
+  //           onPressed: () {
+  //             Navigator.pop(context);
+  //             // Perform logout
+  //           },
+  //           child: Text(
+  //             'Logout',
+  //             style: GoogleFonts.poppins(color: AppColors.errorRed),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+
   void _showLogoutDialog() {
     showDialog(
       context: context,
@@ -347,9 +409,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              // Perform logout
+            onPressed: (){
+              Navigator.pop(context); // close dialog
+              _handleLogout() ;
             },
             child: Text(
               'Logout',

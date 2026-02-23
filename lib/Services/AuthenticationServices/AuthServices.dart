@@ -413,4 +413,195 @@ class AuthService with ChangeNotifier {
     }
 
   }
+
+
+  // ==================== FORGOT PASSWORD ====================
+  Future<bool> resetPassword({required String email}) async {
+
+    try {
+
+      _status = AuthStatus.loading;
+
+      _errorMessage = null;
+
+      notifyListeners();
+
+
+
+      // Enhanced validation
+
+      if (email.isEmpty) {
+
+        _errorMessage = 'Please enter your email address';
+
+        _status = AuthStatus.unauthenticated;
+
+        notifyListeners();
+
+        return false;
+
+      }
+
+
+
+      final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+
+      if (!emailRegex.hasMatch(email)) {
+
+        _errorMessage = 'Please enter a valid email address';
+
+        _status = AuthStatus.unauthenticated;
+
+        notifyListeners();
+
+        return false;
+
+      }
+
+
+      //
+      // // Enhanced debugging
+      //
+      // print('=== PASSWORD RESET DEBUG ===');
+      //
+      // print('Target Email: $email');
+      //
+      // print('Project ID: goal-play');
+      //
+      // print('App ID: 1:480773029928:android:9d726b88dc7fb80a1e351d');
+      //
+      // print('Auth Domain: goal-play.firebaseapp.com');
+      //
+      // print('Current User: ${_auth.currentUser?.email}');
+      //
+      // // Send password reset email
+      //
+      // print('Sending password reset email...');
+
+      await _auth.sendPasswordResetEmail(email: email.trim());
+
+
+
+      print('Password reset email sent successfully to: $email');
+
+      print(' Check inbox and spam folder');
+
+      print(' Link expires in 24 hours');
+
+
+
+      _status = AuthStatus.unauthenticated;
+
+      _errorMessage = 'Password reset email sent! Please check your inbox (including spam folder).';
+
+      notifyListeners();
+
+
+
+      return true;
+
+
+
+    } on FirebaseAuthException catch (e) {
+
+      print(' Firebase Auth Error in reset password:');
+
+      print(' Code: ${e.code}');
+
+      print(' Message: ${e.message}');
+
+      print('Email: ${e.email}');
+
+      print(' Stack Trace: ${e.stackTrace}');
+
+
+
+      // Enhanced error handling
+
+      switch (e.code) {
+
+        case 'user-not-found':
+
+          _errorMessage = 'No account found with this email address. Please sign up first.';
+
+          break;
+
+        case 'invalid-email':
+
+          _errorMessage = 'Invalid email address format. Please check and try again.';
+
+          break;
+
+        case 'too-many-requests':
+
+          _errorMessage = 'Too many requests. Please wait 15-30 minutes before trying again.';
+
+          break;
+
+        case 'network-request-failed':
+
+          _errorMessage = 'Network error. Please check your internet connection and try again.';
+
+          break;
+
+        case 'auth/configuration-not-found':
+
+          _errorMessage = 'Firebase configuration error. Please contact support.';
+
+          break;
+
+        case 'auth/invalid-api-key':
+
+          _errorMessage = 'API key error. Please contact support.';
+
+          break;
+
+        default:
+
+          _errorMessage = 'Failed to send reset email: ${e.message}';
+
+      }
+
+
+
+      _status = AuthStatus.unauthenticated;
+
+      notifyListeners();
+
+      return false;
+
+
+
+    } catch (e) {
+
+      print(' Unexpected error in reset password: $e');
+
+      _errorMessage = 'An unexpected error occurred. Please try again or contact support.';
+
+      _status = AuthStatus.unauthenticated;
+
+      notifyListeners();
+
+      return false;
+
+    }
+
+  }
+
+//=================Logout======================
+  Future<void> logout() async {
+
+    try {
+      await _auth.signOut();
+      // await _googleSignIn.signOut();
+      _user = null;
+      _status = AuthStatus.unauthenticated;
+      _errorMessage = null;
+      notifyListeners();
+    } catch (e) {
+      _errorMessage = 'Logout failed: $e';
+      notifyListeners();
+    }
+
+  }
 }
