@@ -16,10 +16,6 @@ enum QuestDifficulty {
   hard,
 }
 
-
-
-
-
 class Quest {
   final String id;
   final String title;

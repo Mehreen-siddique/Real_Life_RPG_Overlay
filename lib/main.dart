@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_life_rpg/Screens/SplashScreen.dart';
-
+import 'package:real_life_rpg/Services/DataServices/dataServices.dart';
 import 'Services/AuthenticationServices/AuthServices.dart';
 
 
@@ -26,6 +26,8 @@ class _MainScreenState extends State<MainScreen> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthService()),
+        ChangeNotifierProvider(create: (_) => DataService()),
+
       ],
       child: MaterialApp(
         title: 'Goal Play',
